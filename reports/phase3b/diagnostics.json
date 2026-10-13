@@ -1,0 +1,96 @@
+{
+  "all_test_groups": 55,
+  "classification": {
+    "accuracy": 0.48863636363636365,
+    "confusion_matrix": {
+      "CONTRADICT": {
+        "CONTRADICT": 23,
+        "NO_RELATION": 3,
+        "SUPPORT": 4
+      },
+      "SUPPORT": {
+        "CONTRADICT": 35,
+        "NO_RELATION": 3,
+        "SUPPORT": 20
+      }
+    },
+    "correct_count": 43,
+    "eligible_count": 88,
+    "error_count": 45,
+    "macro_f1_support_contradict": 0.5052660753880267,
+    "no_relation_prediction_count": 6,
+    "per_label": {
+      "CONTRADICT": {
+        "f1": 0.5227272727272728,
+        "precision": 0.39655172413793105,
+        "recall": 0.7666666666666667,
+        "support": 30
+      },
+      "SUPPORT": {
+        "f1": 0.4878048780487806,
+        "precision": 0.8333333333333334,
+        "recall": 0.3448275862068966,
+        "support": 58
+      }
+    }
+  },
+  "delta_aurc_EARS_minus_B1": -0.035846428956769594,
+  "delta_sr80_EARS_minus_B1": 0.02857142857142858,
+  "eligible": 88,
+  "eligible_groups": 39,
+  "error_breakdown": {
+    "category_counts_nonexclusive": {
+      "aggregation_failure": 14,
+      "multiple_document_aggregation_failure": 14,
+      "neutral_misclassification": 6,
+      "nli_or_reasoning_failure": 33,
+      "retrieval_failure": 2,
+      "sentence_selection_failure": 10
+    },
+    "class_distribution": {
+      "CONTRADICT": 30,
+      "SUPPORT": 58
+    },
+    "eligible_count": 88,
+    "error_count": 45,
+    "error_rate": 0.5113636363636364,
+    "errors_by_gold_label": {
+      "CONTRADICT": 7,
+      "SUPPORT": 38
+    }
+  },
+  "h1_status": "INCONCLUSIVE",
+  "h2": "NOT_EVALUATED_IN_PHASE3B",
+  "h3": "NOT_EVALUATED_IN_PHASE3B",
+  "internal_test_total": 141,
+  "no_relation_eligible": 6,
+  "no_relation_errors": 6,
+  "retrieval": {
+    "claim_hits_at_20": 84,
+    "claim_hits_at_5": 81,
+    "claim_recall_at_20": 0.9545454545454546,
+    "claim_recall_at_5": 0.9204545454545454,
+    "empty_evidence_claim_count_excluded": 53,
+    "evidence_bearing_claim_denominator": 88,
+    "gold_document_denominator": 93,
+    "gold_document_hits_at_20": 88,
+    "gold_document_hits_at_5": 85,
+    "gold_document_recall_at_20": 0.946236559139785,
+    "gold_document_recall_at_5": 0.9139784946236559
+  },
+  "sentence_selection_at_5": {
+    "complete_rationale_set_hit_count": 67,
+    "conditional_complete_rationale_set_hit_rate": 0.788235294117647,
+    "conditional_micro_gold_sentence_recall": 0.5902777777777778,
+    "gold_claim_document_denominator": 93,
+    "gold_sentence_denominator": 158,
+    "pipeline_complete_rationale_set_hit_rate": 0.7204301075268817,
+    "pipeline_micro_gold_sentence_recall": 0.5379746835443038,
+    "retrieval_cutoff": 5,
+    "retrieved_gold_claim_documents": 85,
+    "retrieved_gold_sentence_denominator": 144,
+    "selected_gold_sentence_hits": 85
+  },
+  "status": "COMPLETE",
+  "unannotated": 53
+}

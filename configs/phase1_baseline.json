@@ -1,0 +1,73 @@
+{
+  "config_version": 1,
+  "created_before_fit_evaluation": true,
+  "run_id": "phase1_fit_baseline_v1",
+  "seed": 20261012,
+  "data_policy": {
+    "allowed_claim_partition": "fit",
+    "allowed_claim_count": 527,
+    "corpus_allowed_as_retrieval_index": true,
+    "sealed_partitions": [
+      "calibration",
+      "internal_test",
+      "raw_scifact_dev",
+      "official_scifact_test"
+    ],
+    "empty_evidence_evaluation": "exclude from retrieval recall and claim-label metrics; preserve as a separate annotation state"
+  },
+  "bm25": {
+    "implementation": "rank_bm25.BM25Okapi",
+    "version": "0.2.2",
+    "document_text": "title + single space + abstract sentences joined by single spaces",
+    "tokenization": "Unicode NFKC, casefold, regex (?u)\\b\\w+\\b, no stemming, no stopword removal",
+    "k1": 1.5,
+    "b": 0.75,
+    "epsilon": 0.25,
+    "reported_cutoffs": [5, 20],
+    "tie_break": "ascending integer doc_id"
+  },
+  "sentence_selection": {
+    "method": "global sentence-IDF weighted lexical overlap",
+    "idf": "log((N_sentences + 1) / (document_frequency + 1)) + 1",
+    "score": "sum IDF of unique claim/sentence token intersection divided by sqrt(unique claim tokens * unique sentence tokens)",
+    "selected_sentences_per_document": 3,
+    "tie_break": "ascending original sentence index",
+    "gold_rationales_used_for_selection": false
+  },
+  "nli": {
+    "model_id": "cross-encoder/nli-distilroberta-base",
+    "revision": "b14d131f9d32668a5e6a982729b57ff6ed5dfcbd",
+    "id2label": {
+      "0": "contradiction",
+      "1": "entailment",
+      "2": "neutral"
+    },
+    "premise": "evidence sentence or oracle rationale text",
+    "hypothesis": "scientific claim",
+    "max_length": 512,
+    "truncation": "longest_first with every pre-truncation token length recorded",
+    "formal_device_preference": "mps",
+    "formal_batch_size": 32,
+    "cpu_smoke_batch_size": 2
+  },
+  "e0": {
+    "unit": "individual gold rationale set",
+    "premise_construction": "gold rationale sentences joined in original index order",
+    "eligible_gold_labels": ["SUPPORT", "CONTRADICT"],
+    "oracle_only": true
+  },
+  "e1": {
+    "retrieved_documents_for_nli": 5,
+    "sentences_per_document": 3,
+    "eligible_gold_labels": ["SUPPORT", "CONTRADICT"],
+    "claim_aggregation": "take argmax NLI label per sentence; discard neutral candidates; among remaining candidates choose the one with greatest probability of its predicted SUPPORT/CONTRADICT class; ties use document rank then selected-sentence rank then original sentence index; if none remain output NO_RELATION",
+    "multiple_document_conflict": "same global maximum rule; conflict flag retained when both SUPPORT and CONTRADICT candidates occur",
+    "absent_retrieved_gold_evidence": "prediction may still be produced, but retrieval failure is recorded independently"
+  },
+  "metrics": {
+    "retrieval": ["claim_recall_at_5", "claim_recall_at_20", "gold_document_recall_at_5", "gold_document_recall_at_20"],
+    "sentence_selection": ["micro_gold_sentence_recall", "complete_rationale_set_hit_rate"],
+    "classification": ["accuracy", "macro_f1_over_SUPPORT_CONTRADICT", "confusion_matrix_with_NO_RELATION_prediction_column"],
+    "fold_use": "report-only stability slices; no parameter or heuristic selection"
+  }
+}

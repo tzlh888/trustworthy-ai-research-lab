@@ -1,0 +1,95 @@
+{
+  "protocol_version": "phase3a-v1.0.0",
+  "status": "FROZEN_BEFORE_PHASE3B_ACCESS",
+  "phase": "3A",
+  "created_date": "2026-10-13",
+  "objective": "Independently test whether Full EARS improves error-risk ranking over B1 on the frozen Internal Test without test-driven adaptation.",
+  "predecessor": {
+    "phase2_protocol": "phase2a-v1.0.0",
+    "phase2b_h1_status": "INCONCLUSIVE",
+    "phase2b_gate": "CONDITIONAL GO for Phase 3"
+  },
+  "data": {
+    "final_training_partition": "fit",
+    "final_training_eligible_claims": 329,
+    "primary_evaluation_partition": "internal_test",
+    "primary_evaluation_total_claims": 141,
+    "primary_evaluation_eligible_claims": "UNKNOWN_UNTIL_PHASE3B",
+    "calibration_claims": 141,
+    "calibration_use": "PROHIBITED_IN_PHASE3A_AND_PHASE3B_H1",
+    "raw_scifact_dev_use": "PROHIBITED",
+    "official_scifact_test_use": "PROHIBITED"
+  },
+  "primary_method": "EARS",
+  "primary_comparator": "B1",
+  "methods": {
+    "B0": {"training": "none", "features": ["F1"], "risk": "1 - decision_confidence"},
+    "B1": {"training": "final fit on 329 eligible fit claims", "features": ["F1", "F2", "F3"]},
+    "B2": {"training": "final fit on 329 eligible fit claims", "features": ["F4", "F5"]},
+    "EARS": {"training": "final fit on 329 eligible fit claims", "features": ["F1", "F2", "F3", "F4", "F5"]}
+  },
+  "final_training": {
+    "target": "y_error = int(frozen E1 predicted_claim_label != authentic SUPPORT/CONTRADICT label)",
+    "continuous_standardization": ["F1", "F2", "F4", "F5"],
+    "standardization_population": "329 eligible fit claims only",
+    "standard_deviation": "population ddof=0; scale 1 for exact zero variance",
+    "categorical_encoding": "F3 fixed two dummies with SUPPORT reference; no scaling",
+    "missing_or_nonfinite": "stop final training; no imputation",
+    "logistic_regression": {
+      "implementation": "sklearn.linear_model.LogisticRegression",
+      "penalty": "l2",
+      "C": 0.1,
+      "solver": "lbfgs",
+      "class_weight": null,
+      "fit_intercept": true,
+      "max_iter": 2000,
+      "tol": 1e-6,
+      "random_state": 20261014
+    },
+    "risk_output": "predict_proba for class y_error=1",
+    "required_artifacts_before_test_access": [
+      "final_risk_models.joblib containing B1/B2/EARS models and preprocessing objects",
+      "final_model_numeric_spec.json containing lossless scaler, coefficient, intercept and class-order values",
+      "final_model_manifest.json containing versions, training counts and SHA-256 hashes"
+    ],
+    "serialization_consistency_check": "scores from the joblib objects and lossless numeric specification must agree on all 329 fit rows within absolute tolerance 1e-12",
+    "hyperparameter_search": false
+  },
+  "phase3b_execution_order": [
+    "verify all predecessor and Phase 3A hashes",
+    "fit B1, B2 and Full EARS on exactly 329 eligible fit claims",
+    "freeze scaler, coefficients, intercepts, metadata and model artifact hashes",
+    "verify no Internal Test content was accessed before model freeze",
+    "selectively deserialize exactly the 141 Internal Test claim IDs",
+    "run the unchanged E1 retrieval, sentence selection, NLI and aggregation pipeline",
+    "validate completeness and derive eligibility without exclusions",
+    "execute the primary evaluation once",
+    "execute only preregistered secondary and sensitivity analyses",
+    "freeze all results and produce the Phase 3B report"
+  ],
+  "seeds": {
+    "logistic": 20261014,
+    "tie_break": 20261015,
+    "bootstrap": 20261016,
+    "future_h2_perturbation": 20261017
+  },
+  "stopping_conditions": [
+    "any predecessor or Phase 3A frozen hash mismatch",
+    "final-training population is not exactly the frozen 329 eligible fit claims",
+    "any learned model fails to converge under the frozen solver configuration",
+    "Internal Test content was accessed before final-model artifact freeze",
+    "any eligible Internal Test claim lacks a complete E1 or B0/B1/B2/EARS risk output",
+    "feature schema or model dependency is incompatible with the frozen implementation",
+    "test results have already been inspected before the one-time primary evaluation"
+  ],
+  "prohibitions": [
+    "promote EARS_without_F4 to the primary method",
+    "feature or hyperparameter selection",
+    "use calibration, Internal Test, Dev or official Test labels for fitting",
+    "change retrieval, sentence selection, NLI or aggregation using test behavior",
+    "probability calibration or deployment-threshold selection",
+    "replace Internal Test with SciFact Dev",
+    "silently exclude failures or adverse cases",
+    "choose between Phase 2B and Phase 3B results based on favorability"
+  ]
+}

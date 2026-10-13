@@ -1,0 +1,59 @@
+{
+  "protocol_version": "phase2a-v1.0.0",
+  "status": "FROZEN_BEFORE_PHASE2B_PERFORMANCE",
+  "phase": "2A",
+  "created_date": "2026-10-13",
+  "data": {
+    "allowed_partition": "fit",
+    "fit_claims": 527,
+    "eligible_claims": 329,
+    "excluded_unannotated_claims": 198,
+    "sealed": ["calibration", "internal_test", "raw_scifact_dev", "official_scifact_test"]
+  },
+  "target": "y_error = int(frozen E1 claim-level prediction is not equal to authentic SUPPORT/CONTRADICT label)",
+  "cross_fitting": {
+    "outer_folds": 5,
+    "source": "splits/train_split_manifest.json#crossfit_validation_folds_within_fit",
+    "procedure": "train on four folds and score only the held-out fold",
+    "expected_oof_rows_per_claim": 1,
+    "preprocessing_scope": "outer-training folds only",
+    "hyperparameter_tuning": "none; C fixed at 0.1",
+    "base_E1_predictions": "frozen; not regenerated or modified"
+  },
+  "statistics": {
+    "ranking": "ascending predicted risk",
+    "tie_break": "ascending SHA-256 of '20261015:claim_id', identical across methods",
+    "coverage": "accepted claim count / eligible claim count",
+    "selective_risk": "sum y_error among accepted / accepted count",
+    "aurc": "arithmetic mean of prefix selective risks for k=1..n; no oracle normalization",
+    "coverage_80_count": "floor(0.8*n + 0.5); equals 263 when n=329",
+    "primary_contrast": "paired EARS minus B1",
+    "primary_estimands": ["delta_AURC", "delta_selective_risk_at_80_percent_coverage"],
+    "success_rule": "both paired 95% CIs have upper bound below 0; otherwise H1 is not supported",
+    "secondary": ["error-detection AUROC", "class-conditional coverage", "class-conditional selective risk", "coefficient stability", "all preregistered ablations"],
+    "bootstrap": {
+      "replicates": 10000,
+      "seed": 20261016,
+      "unit": "connected cited-document/normalized-duplicate claim group",
+      "paired": true,
+      "interval": "percentile 2.5th and 97.5th quantiles",
+      "invalid_replicate_rule": "record and omit only a secondary AUROC replicate lacking both y_error classes; risk/AURC replicates remain valid"
+    }
+  },
+  "seeds": {
+    "master_split": 20261012,
+    "crossfit_allocation": 20261013,
+    "logistic": 20261014,
+    "tie_break": 20261015,
+    "bootstrap": 20261016
+  },
+  "prohibitions": [
+    "train any risk model in Phase 2A",
+    "compute EARS/B1/B2/B0 selective performance in Phase 2A",
+    "temperature scaling",
+    "abstention threshold selection",
+    "sealed-partition predictions or error inspection",
+    "feature search using y_error",
+    "modification of frozen E1 predictions"
+  ]
+}

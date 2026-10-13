@@ -1,0 +1,80 @@
+{
+  "all_byte_identical": true,
+  "comparisons": [
+    {
+      "artifact": "bootstrap_confidence_intervals.csv",
+      "byte_identical": true,
+      "first_sha256": "4af89613ee975816025967d2cdf93ee631e22aa0c17a10c10c3756419f343f4e",
+      "second_sha256": "4af89613ee975816025967d2cdf93ee631e22aa0c17a10c10c3756419f343f4e"
+    },
+    {
+      "artifact": "bootstrap_replicates.csv",
+      "byte_identical": true,
+      "first_sha256": "68f4a47b0bac234b9d54d96e2c8095494cbccf71c30391731f5d4a7dc746b966",
+      "second_sha256": "68f4a47b0bac234b9d54d96e2c8095494cbccf71c30391731f5d4a7dc746b966"
+    },
+    {
+      "artifact": "class_conditional_results.csv",
+      "byte_identical": true,
+      "first_sha256": "ac3bad0e5eb46a09488b72d57c9eb9b781b92aa60987c559599f07cc6fbe1838",
+      "second_sha256": "ac3bad0e5eb46a09488b72d57c9eb9b781b92aa60987c559599f07cc6fbe1838"
+    },
+    {
+      "artifact": "diagnostics.json",
+      "byte_identical": true,
+      "first_sha256": "d3fe8556de04b123668ccac83ea1a04af058677e5ec856a8e54a2ba6bfbdb5b0",
+      "second_sha256": "d3fe8556de04b123668ccac83ea1a04af058677e5ec856a8e54a2ba6bfbdb5b0"
+    },
+    {
+      "artifact": "error_analysis_cases.jsonl",
+      "byte_identical": true,
+      "first_sha256": "e8e51e2156743d039b4fab15ad5c787a1752dfc2763befb5c796f25177b5ff22",
+      "second_sha256": "e8e51e2156743d039b4fab15ad5c787a1752dfc2763befb5c796f25177b5ff22"
+    },
+    {
+      "artifact": "no_relation_sensitivity.csv",
+      "byte_identical": true,
+      "first_sha256": "4020e7be3ac8d6af248641bab4512a3f3a9fa0e55450e37c5826edc62226bad5",
+      "second_sha256": "4020e7be3ac8d6af248641bab4512a3f3a9fa0e55450e37c5826edc62226bad5"
+    },
+    {
+      "artifact": "paired_comparisons.csv",
+      "byte_identical": true,
+      "first_sha256": "6dfa7abf957a6676a9faf9a030a8a24d0047d1dab37bd1eb10ae1a928d7748e7",
+      "second_sha256": "6dfa7abf957a6676a9faf9a030a8a24d0047d1dab37bd1eb10ae1a928d7748e7"
+    },
+    {
+      "artifact": "risk_coverage_curves.csv",
+      "byte_identical": true,
+      "first_sha256": "7f8ffa84de4a55ad0e502210cb698956fc0458947df62e26e465264b0a07b67f",
+      "second_sha256": "7f8ffa84de4a55ad0e502210cb698956fc0458947df62e26e465264b0a07b67f"
+    },
+    {
+      "artifact": "test_evaluation_records.jsonl",
+      "byte_identical": true,
+      "first_sha256": "3897a8d79f56eab6de8e2f88512e5eceae49c958d663ee78ec3c5f71fbd76e0c",
+      "second_sha256": "3897a8d79f56eab6de8e2f88512e5eceae49c958d663ee78ec3c5f71fbd76e0c"
+    },
+    {
+      "artifact": "test_metrics.csv",
+      "byte_identical": true,
+      "first_sha256": "a4f040f2573f447b6ecd692a1e1334f33353201bf44c043e00f1188800d92a26",
+      "second_sha256": "a4f040f2573f447b6ecd692a1e1334f33353201bf44c043e00f1188800d92a26"
+    },
+    {
+      "artifact": "test_risk_predictions.csv",
+      "byte_identical": true,
+      "first_sha256": "26d793d5c542e1c4b0f5f1b5f85eac2d15a3fbe18e20ab74d81ded54a45035ef",
+      "second_sha256": "26d793d5c542e1c4b0f5f1b5f85eac2d15a3fbe18e20ab74d81ded54a45035ef"
+    }
+  ],
+  "created_at_utc": "2026-10-13T17:11:30.201080+00:00",
+  "deterministic_artifacts_compared": 11,
+  "excluded_nondeterministic": [
+    "data_access_log.json",
+    "experiment_manifest.json",
+    "figures PNG metadata"
+  ],
+  "note": "Both recalculations used the same already-frozen prediction scores and labels; no model was retrained.",
+  "runs_compared": 2
+}

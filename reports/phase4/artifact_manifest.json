@@ -1,0 +1,27 @@
+{
+  "created_at_utc": "2026-10-13T17:35:28.775827+00:00",
+  "scope": "Phase 4 manuscripts, portfolio files, figures, and demo source",
+  "sha256": {
+    "application/CV_BULLET_POINTS.md": "ef31df6ad8357b4cafc2d170e28236f8cc5a38dddb633f6091cac60cd98f8e4d",
+    "application/ONE_PAGE_RESEARCH_SUMMARY.md": "21ad0ba7c8f98a42bedefe7cc71f23d7817cdcf67f486eebc49c2b709f6ee509",
+    "application/PROJECT_DESCRIPTION_150_WORDS.md": "e11f848c65033a4738bafbb0ecae4039fac76d7f44de874fb66c3c8942ba15ad",
+    "application/TECHNICAL_INTERVIEW_QA.md": "c8ee6f08021150b48094fcf001036bb5cede23f43d3a335133804708af9a41de",
+    "application/THREE_MINUTE_PRESENTATION_SCRIPT.md": "ab5f02794c05c99307d3109fba263250ec655cef316ae2d20219aa108143bae9",
+    "demo/README.md": "db4a8646da3c88f617b9237e111fd08299efad40fb5aa5428030f108eac3e6b7",
+    "demo/__init__.py": "c75003a51bfa801c589ec9088b3c3c3b86654a05914c568360299237c06218c6",
+    "demo/app.py": "c1f63d72a749ee9bbd40f7f38bfdc1bc67479b130c6c72ea9be844e79621e262",
+    "demo/core.py": "9991d289466afe8381e1118aa23776fcbfa536fce0d5f792de42e76f58a0562b",
+    "paper/EARS_selective_prediction_paper.md": "d04dcfffe5173b3843557ddacc477bcc08b620111f3b1d4939bba95fcd1c7067",
+    "reports/phase4/figures/CAPTIONS.md": "07da012f5bb85be6c80d428ad0273355341129898e2904714ea637b14dd23c76",
+    "reports/phase4/figures/figure_1_risk_coverage_fit_vs_test.png": "f662680057392df50643fc0406f28c18538baa7bca994f9a23f77f8f206a15ee",
+    "reports/phase4/figures/figure_1_risk_coverage_fit_vs_test.svg": "8cbe5afca8c2d1c4414c231d8a3194a74139d33009c852073343a057b77a5347",
+    "reports/phase4/figures/figure_2_aurc_and_r80_comparison.png": "17fbefea2081106b1adc3d20385d10af46e6c1559019d828a53fd28fe87a47d5",
+    "reports/phase4/figures/figure_2_aurc_and_r80_comparison.svg": "ad9823909ec22a14835517ebd7ec03f5f2baa77e95e3c7800bb44a6edca0bc80",
+    "reports/phase4/figures/figure_3_primary_bootstrap_intervals.png": "406c3a77ce20e450f76c6e0bddf3d4616001aca2b16d105a0e3e8f37be43376e",
+    "reports/phase4/figures/figure_3_primary_bootstrap_intervals.svg": "79d87c56121d5ca46fcddac57b6beb63951332bb9ffcf46ca2993cb0583bfdce",
+    "reports/phase4/figures/figure_4_no_relation_sensitivity.png": "e37b4bd42729ae546595d70b2a3014c86d939918cfaad335f55ceb53a5daecdb",
+    "reports/phase4/figures/figure_4_no_relation_sensitivity.svg": "c6826a1fb8c8696c113dd2502f69fdf820b2ed17dbafeb92c08a65575bad4dba",
+    "reports/phase4/figures/table_1_representative_failure_cases.png": "51fda2033252fd60cb4b2c7e020d7beedfc923be0328c841294606a90aa318ba",
+    "reports/phase4/figures/table_1_representative_failure_cases.svg": "03547666224f9c1e71fbc4f40911f5c03c5fd7ab0de4e563466c05fbcc29e9e1"
+  }
+}

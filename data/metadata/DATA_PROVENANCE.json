@@ -1,0 +1,28 @@
+{
+  "dataset": "SciFact",
+  "retrieved_at_utc": "2026-10-13T06:42:07Z",
+  "official_repository": {
+    "url": "https://github.com/allenai/scifact",
+    "audited_commit": "68b98a56d93e0f9da0d2aab4e6c3294699a0f72e"
+  },
+  "official_archive": {
+    "url": "https://scifact.s3-us-west-2.amazonaws.com/release/latest/data.tar.gz",
+    "sha256": "11c621288d41ac144d29b13b0f8503b3820b7d6e8b1f6ff24dff335c196d76be",
+    "bytes": 3115079,
+    "last_modified": "2021-01-26T02:28:59Z",
+    "etag": "cb7da4d8609e30f2c7483b61aa447f7e",
+    "s3_version_id": "8LiW3OUBLBvhehDzrRdGD1ibIaXL.6PQ",
+    "note": "The upstream URL is named latest and is mutable; the archive SHA-256 and S3 version ID identify the audited bytes."
+  },
+  "license_source": "https://github.com/allenai/scifact/blob/68b98a56d93e0f9da0d2aab4e6c3294699a0f72e/LICENSE.md",
+  "license_summary": {
+    "claims_and_evidence_annotations": "CC BY 4.0",
+    "corpus_abstracts": "ODC-By 1.0 via S2ORC",
+    "upstream_code": "Apache-2.0"
+  },
+  "phase0_policy": {
+    "raw_dev": "Integrity and necessary metadata checks only; no prediction inspection or performance evaluation.",
+    "official_test": "Unlabeled; no local official-Test performance claim is possible.",
+    "public_release": "Raw data are ignored by Git and must not be republished without preserving attribution and applicable license terms."
+  }
+}

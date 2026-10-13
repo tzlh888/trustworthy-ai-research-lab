@@ -1,0 +1,54 @@
+{
+  "protocol_version": "phase3a-v1.0.0",
+  "statistical_plan_version": 1,
+  "ranking": {
+    "direction": "ascending predicted error risk",
+    "tie_break": "ascending SHA-256 of '20261015:claim_id'",
+    "bootstrap_duplicate_tie_break": "risk, frozen claim tie hash, sampled occurrence position"
+  },
+  "metrics": {
+    "coverage": "accepted claim count / eligible claim count",
+    "selective_risk": "accepted errors / accepted claim count",
+    "aurc": "arithmetic mean of prefix selective risks for k=1..n; no oracle normalization",
+    "coverage_80_count": "floor(0.8*n + 0.5)",
+    "error_detection_auroc_positive_class": "y_error=1"
+  },
+  "bootstrap": {
+    "replicates": 10000,
+    "seed": 20261016,
+    "paired": true,
+    "retrain_models": false,
+    "group_construction_population": "all 141 Internal Test claims before eligibility filtering",
+    "group_edges": ["shared cited document ID", "identical normalized claim text"],
+    "group_id": "minimum claim ID in connected component",
+    "sampling_population": "connected groups containing at least one eligible claim",
+    "draws_per_replicate": "number of eligible-containing groups, sampled with replacement",
+    "include_draw": "all eligible claims in each sampled group; retain repeated group occurrences",
+    "coverage_recalculation": "recompute n and floor(0.8*n + 0.5) in every replicate",
+    "interval": "percentile 2.5th and 97.5th quantiles using numpy linear interpolation",
+    "invalid_auroc_replicate": "record and omit only AUROC when sampled y_error has one class; keep AURC and R80",
+    "empty_sampling_population": "stop; primary evaluation is not estimable"
+  },
+  "primary_contrast": {
+    "name": "EARS_minus_B1",
+    "estimands": ["delta_aurc", "delta_sr80"],
+    "better_direction": "negative",
+    "supported": "both point differences are negative and both paired 95% CI upper bounds are strictly below zero",
+    "unfavorable": "both point differences are positive and both paired 95% CI lower bounds are strictly above zero",
+    "inconclusive": "every other outcome, including either interval containing zero",
+    "final_evidence_rule": "Phase 3B independent result is reported regardless of whether it agrees with Phase 2B; no favorable-result selection"
+  },
+  "small_sample_rules": {
+    "n_zero": "stop; no eligible primary population",
+    "n_positive": "AURC and R80 remain mechanically defined",
+    "fewer_than_two_eligible_groups": "report descriptive metrics but H1 inferential conclusion is NOT_EVALUABLE",
+    "single_y_error_class_overall": "AUROC is NA; AURC/R80 and paired contrasts remain reported; H1 cannot be SUPPORTED if paired intervals are degenerate at zero",
+    "low_power": "report wide intervals without changing alpha, replicates, endpoints or success rule"
+  },
+  "secondary_analysis_control": {
+    "confirmatory_claims": "none beyond the primary EARS-vs-B1 contrast",
+    "multiplicity_adjustment": "not applied because secondary results are explicitly descriptive",
+    "no_relation_subset_cannot_replace_primary": true,
+    "gold_labels_allowed_only_after_scoring": true
+  }
+}

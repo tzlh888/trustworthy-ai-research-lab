@@ -1,0 +1,65 @@
+{
+  "protocol_version": "phase3a-v1.0.0",
+  "evaluation_version": 1,
+  "primary_dataset": "frozen_internal_test",
+  "total_claims": 141,
+  "eligible_count": "UNKNOWN_UNTIL_PHASE3B",
+  "evaluation_unit": "claim",
+  "eligibility": {
+    "include": "every Internal Test claim with authentic annotated evidence yielding exactly one SUPPORT or CONTRADICT label",
+    "exclude_from_primary": "claims with no annotated evidence",
+    "excluded_handling": "record count and processing status separately; never relabel as neutral, evidence-insufficient or abstained",
+    "mixed_gold_labels": "stop and report schema violation",
+    "silent_exclusion": false
+  },
+  "e1_inference": {
+    "config": "configs/phase1_baseline.json",
+    "model_id": "cross-encoder/nli-distilroberta-base",
+    "model_revision": "b14d131f9d32668a5e6a982729b57ff6ed5dfcbd",
+    "retrieval": "unchanged frozen BM25 procedure",
+    "sentence_selection": "unchanged frozen Phase 1 procedure",
+    "nli_input_order": "unchanged frozen Phase 1 order",
+    "claim_aggregation": "unchanged frozen Phase 1 aggregation",
+    "rerun_or_manual_override": false
+  },
+  "methods": ["B0", "B1", "B2", "EARS"],
+  "primary_comparison": "EARS_minus_B1",
+  "primary_metrics": [
+    "risk_coverage_curve",
+    "aurc",
+    "selective_risk_at_80_percent_coverage",
+    "delta_aurc_EARS_minus_B1",
+    "delta_sr80_EARS_minus_B1"
+  ],
+  "secondary_metrics": [
+    "error_detection_auroc",
+    "B0_B1_B2_EARS_descriptive_comparison",
+    "gold_label_conditional_coverage_at_global_80_percent_cutoff",
+    "gold_label_conditional_selective_risk_at_global_80_percent_cutoff",
+    "high_confidence_error_analysis",
+    "false_reassurance_analysis",
+    "unnecessary_rejection_analysis"
+  ],
+  "no_relation_sensitivity": {
+    "status": "preregistered_secondary",
+    "overall": "primary population; no exclusions",
+    "non_no_relation": "eligible claims whose frozen E1 prediction is SUPPORT or CONTRADICT; rerank fixed scores within subset",
+    "no_relation": "report count, error count/rate and risk distributions; AUROC is undefined when only one y_error class exists",
+    "predicted_category": "report count, error rate, risk summaries and global-80 acceptance behavior for SUPPORT, CONTRADICT and NO_RELATION",
+    "gold_label": "post-hoc evaluation only; never a feature; use global 80 percent acceptance set",
+    "cannot_replace_primary": true
+  },
+  "completeness": {
+    "required_e1_rows": 141,
+    "required_risk_rows_per_method": "exactly one per eligible claim",
+    "duplicate_claim_id": "stop",
+    "missing_eligible_prediction_or_risk": "invalidate and stop the formal H1 evaluation",
+    "nonfinite_score": "invalidate and stop the formal H1 evaluation",
+    "unannotated_claim_pipeline_failure": "record separately; never convert to a labeled example"
+  },
+  "interpretation_limits": [
+    "document grouping guarantees only cited-document and normalized-claim separation under the frozen split protocol",
+    "it does not guarantee independence of retrieved candidate documents, pretrained knowledge or scientific domains",
+    "ranking quality is not classification accuracy, probability calibration or deployment utility"
+  ]
+}

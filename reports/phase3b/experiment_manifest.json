@@ -1,0 +1,29 @@
+{
+  "bootstrap": {
+    "replicates": 10000,
+    "retrain_models": false,
+    "seed": 20261016
+  },
+  "created_at_utc": "2026-10-13T17:11:04.990451+00:00",
+  "deterministic_artifact_sha256": {
+    "bootstrap_confidence_intervals.csv": "4af89613ee975816025967d2cdf93ee631e22aa0c17a10c10c3756419f343f4e",
+    "bootstrap_replicates.csv": "68f4a47b0bac234b9d54d96e2c8095494cbccf71c30391731f5d4a7dc746b966",
+    "class_conditional_results.csv": "ac3bad0e5eb46a09488b72d57c9eb9b781b92aa60987c559599f07cc6fbe1838",
+    "diagnostics.json": "d3fe8556de04b123668ccac83ea1a04af058677e5ec856a8e54a2ba6bfbdb5b0",
+    "error_analysis_cases.jsonl": "e8e51e2156743d039b4fab15ad5c787a1752dfc2763befb5c796f25177b5ff22",
+    "no_relation_sensitivity.csv": "4020e7be3ac8d6af248641bab4512a3f3a9fa0e55450e37c5826edc62226bad5",
+    "paired_comparisons.csv": "6dfa7abf957a6676a9faf9a030a8a24d0047d1dab37bd1eb10ae1a928d7748e7",
+    "risk_coverage_curves.csv": "7f8ffa84de4a55ad0e502210cb698956fc0458947df62e26e465264b0a07b67f",
+    "test_evaluation_records.jsonl": "3897a8d79f56eab6de8e2f88512e5eceae49c958d663ee78ec3c5f71fbd76e0c",
+    "test_metrics.csv": "a4f040f2573f447b6ecd692a1e1334f33353201bf44c043e00f1188800d92a26",
+    "test_risk_predictions.csv": "26d793d5c542e1c4b0f5f1b5f85eac2d15a3fbe18e20ab74d81ded54a45035ef"
+  },
+  "final_model_manifest_sha256": "469cf52a4924a356b3fe224526cd444d82728d0534d7cb4d89848bc923449ea3",
+  "h1_status": "INCONCLUSIVE",
+  "internal_test_labels_used": true,
+  "models_retrained_after_test_access": false,
+  "prediction_freeze_manifest_sha256": "35b9f31ffcae38ac4be0f7382a72302dbf9a9ebf4e36d094e1b10515d8800e81",
+  "prohibited_data_used": [],
+  "protocol_version": "phase3a-v1.0.0",
+  "status": "PHASE3B_EVALUATION_COMPLETE"
+}

@@ -1,0 +1,27 @@
+{
+  "status": "PASS_WITH_DISCLOSED_METADATA_CORRECTION",
+  "phase0_to_phase3a_frozen_hashes_unchanged": true,
+  "final_model_artifact_hashes_match_pretest_manifest": true,
+  "final_model_source_hashes_match_pretest_manifest": true,
+  "prediction_artifact_hashes_match_prelabel_manifest": true,
+  "models_retrained_after_test_access": false,
+  "eligible_claims_complete_for_all_methods": true,
+  "eligible_claims": 88,
+  "methods_share_same_population": true,
+  "deterministic_recalculations": 2,
+  "deterministic_artifacts_compared": 11,
+  "all_compared_artifacts_byte_identical": true,
+  "bootstrap_seed": 20261016,
+  "bootstrap_replicates": 10000,
+  "calibration_used": false,
+  "scifact_dev_used": false,
+  "official_test_used": false,
+  "h2_executed": false,
+  "h3_executed": false,
+  "negative_results_hidden": false,
+  "full_test_suite": "61 passed with PYTHONPATH=. after one disclosed collection-path failure",
+  "disclosures": [
+    "reports/phase3b/technical_incidents.json",
+    "reports/phase3b/metadata_corrections.json"
+  ]
+}

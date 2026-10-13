@@ -1,0 +1,3 @@
+-r requirements-phase2b.txt
+joblib==1.6.0
+matplotlib==3.10.7

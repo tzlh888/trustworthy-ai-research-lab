@@ -1,0 +1,100 @@
+{
+  "protocol_version": "phase2a-v1.0.0",
+  "schema_version": 1,
+  "unit": "one frozen E1 prediction per eligible fit claim",
+  "target": {
+    "name": "y_error",
+    "definition": "0 if frozen E1 predicted_claim_label equals authentic SUPPORT/CONTRADICT label; 1 otherwise, including NO_RELATION",
+    "allowed_as_feature": false
+  },
+  "features": [
+    {
+      "id": "F1",
+      "name": "decision_confidence",
+      "family": "nli",
+      "definition": "For SUPPORT/CONTRADICT, probability of the exact winning sentence/class used by frozen aggregation. For NO_RELATION, minimum neutral probability over all 15 pairs because the decision is the conjunction that every pair is neutral-argmax.",
+      "range": [0.0, 1.0],
+      "inference_time_available": true,
+      "gold_information": false,
+      "missing": "forbidden; fail validation",
+      "extreme_handling": "none; already bounded",
+      "failure_mechanism": "weak confidence in the exact final decision",
+      "no_relation": "minimum pairwise neutral probability"
+    },
+    {
+      "id": "F2",
+      "name": "support_contradict_margin",
+      "family": "nli",
+      "definition": "absolute(max over pairs entailment probability - max over pairs contradiction probability)",
+      "range": [0.0, 1.0],
+      "inference_time_available": true,
+      "gold_information": false,
+      "missing": "forbidden; fail validation",
+      "extreme_handling": "none; already bounded",
+      "failure_mechanism": "claim-level SUPPORT/CONTRADICT ambiguity",
+      "no_relation": "same formula; no special imputation"
+    },
+    {
+      "id": "F3",
+      "name": "predicted_decision_category",
+      "family": "nli",
+      "definition": "frozen E1 final category; fixed one-hot encoding with SUPPORT as reference, yielding is_CONTRADICT and is_NO_RELATION",
+      "levels": ["SUPPORT", "CONTRADICT", "NO_RELATION"],
+      "effective_columns": 2,
+      "inference_time_available": true,
+      "gold_information": false,
+      "missing": "forbidden; unknown level fails validation",
+      "extreme_handling": "not applicable",
+      "failure_mechanism": "systematic category-dependent error propensity",
+      "no_relation": "explicit is_NO_RELATION indicator; not relabelled as abstention or insufficiency"
+    },
+    {
+      "id": "F4",
+      "name": "bm25_top2_normalized_margin",
+      "family": "evidence",
+      "definition": "(score_rank1 - score_rank2) / (abs(score_rank1) + abs(score_rank2) + 1e-12)",
+      "range": [0.0, 1.0],
+      "inference_time_available": true,
+      "gold_information": false,
+      "missing": "forbidden because corpus always returns at least two documents",
+      "extreme_handling": "1e-12 denominator guard; no clipping",
+      "failure_mechanism": "ambiguous document retrieval",
+      "no_relation": "same formula"
+    },
+    {
+      "id": "F5",
+      "name": "evidence_conflict_rate",
+      "family": "evidence",
+      "definition": "Let nS/nC count sentence pairs whose argmax is entailment/contradiction. If nS+nC=0 return 0; otherwise 2*min(nS,nC)/(nS+nC).",
+      "range": [0.0, 1.0],
+      "inference_time_available": true,
+      "gold_information": false,
+      "missing": "forbidden; fail validation",
+      "extreme_handling": "none; already bounded",
+      "failure_mechanism": "conflicting relations across retrieved evidence candidates",
+      "no_relation": "0 when every sentence pair is neutral-argmax",
+      "semantic_note": "uses fixed NLI outputs across evidence candidates but never authentic evidence IDs or labels"
+    }
+  ],
+  "preprocessing": {
+    "continuous": ["F1", "F2", "F4", "F5"],
+    "standardization": "training-fold mean and population standard deviation only; zero variance uses scale 1",
+    "categorical": "fixed encoding defined by F3; no learned category order",
+    "imputation": "none; nonfinite or missing inputs stop the affected run",
+    "correlation_rule": "Before training, audit Pearson correlations without y_error. If abs(r)>=0.95, retain both only when they represent distinct preregistered mechanisms and L2 is used; flag coefficients as non-identifiable individually. No outcome-based pruning is permitted."
+  },
+  "prohibited_inputs": [
+    "gold_evidence_label",
+    "correct",
+    "y_error",
+    "gold_evidence_doc_ids",
+    "retrieval_hit_at_5",
+    "retrieved_gold_doc_ids_at_5",
+    "any_gold_rationale_sentence_selected",
+    "any_complete_gold_rationale_selected",
+    "failure_categories",
+    "claim_id",
+    "fit_fold",
+    "split membership"
+  ]
+}

@@ -1,0 +1,15 @@
+estimand,kind,method_or_contrast,metric,point_estimate,ci_lower_95,ci_upper_95,valid_replicates,invalid_replicates,replicates,interval_method
+aurc_B0,method,B0,aurc,0.3408113266592551,0.27730074313759545,0.4130289530656919,10000,0,10000,paired grouped percentile; numpy linear quantiles
+sr80_B0,method,B0,sr80,0.4714828897338403,0.4108527131782946,0.5366939208115677,10000,0,10000,paired grouped percentile; numpy linear quantiles
+auroc_B0,method,B0,auroc,0.7317996289424861,0.6763256048387096,0.7834027178279224,10000,0,10000,paired grouped percentile; numpy linear quantiles
+aurc_B1,method,B1,aurc,0.2778922963659805,0.22182537050727413,0.34199893325571434,10000,0,10000,paired grouped percentile; numpy linear quantiles
+sr80_B1,method,B1,sr80,0.44106463878326996,0.376425855513308,0.5076923076923077,10000,0,10000,paired grouped percentile; numpy linear quantiles
+auroc_B1,method,B1,auroc,0.8389981447124304,0.7941271219632442,0.8810775519538007,10000,0,10000,paired grouped percentile; numpy linear quantiles
+aurc_B2,method,B2,aurc,0.465975275343962,0.390831695194446,0.5439167729106961,10000,0,10000,paired grouped percentile; numpy linear quantiles
+sr80_B2,method,B2,sr80,0.5285171102661597,0.46153846153846156,0.5868725868725869,10000,0,10000,paired grouped percentile; numpy linear quantiles
+auroc_B2,method,B2,auroc,0.5634137291280149,0.49994364072142167,0.6278191644210018,10000,0,10000,paired grouped percentile; numpy linear quantiles
+aurc_EARS,method,EARS,aurc,0.2713440902892766,0.2176326472817396,0.33294571524621147,10000,0,10000,paired grouped percentile; numpy linear quantiles
+sr80_EARS,method,EARS,sr80,0.4372623574144487,0.37218045112781956,0.5056614534758591,10000,0,10000,paired grouped percentile; numpy linear quantiles
+auroc_EARS,method,EARS,auroc,0.8460853432282004,0.8034116373545164,0.8868040880717768,10000,0,10000,paired grouped percentile; numpy linear quantiles
+delta_aurc_EARS_minus_B1,paired_contrast,EARS_minus_B1,aurc,-0.006548206076703922,-0.0243812024583594,0.011828387978042006,10000,0,10000,paired grouped percentile; numpy linear quantiles
+delta_sr80_EARS_minus_B1,paired_contrast,EARS_minus_B1,sr80,-0.0038022813688212698,-0.019230769230769218,0.011450381679389332,10000,0,10000,paired grouped percentile; numpy linear quantiles

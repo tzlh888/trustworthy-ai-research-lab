@@ -1,0 +1,59 @@
+{
+  "protocol_version": "phase2a-v1.0.0",
+  "shared_population": "329 eligible frozen-fit claims",
+  "shared_target": "y_error from the frozen E1 claim prediction",
+  "shared_outer_folds": "crossfit_validation_folds_within_fit from the frozen manifest",
+  "models": {
+    "B0": {
+      "name": "Decision-aligned maximum-softmax baseline",
+      "type": "fixed score, no training",
+      "features": ["F1"],
+      "risk_score": "1 - decision_confidence"
+    },
+    "B1": {
+      "name": "NLI-only risk model",
+      "type": "L2 LogisticRegression",
+      "features": ["F1", "F2", "F3"]
+    },
+    "B2": {
+      "name": "Evidence-only risk model",
+      "type": "L2 LogisticRegression",
+      "features": ["F4", "F5"]
+    },
+    "EARS": {
+      "name": "Evidence-Aware Risk Scoring",
+      "type": "L2 LogisticRegression",
+      "features": ["F1", "F2", "F3", "F4", "F5"]
+    },
+    "EARS_minus_F4": {
+      "name": "Remove retrieval margin ablation",
+      "type": "L2 LogisticRegression",
+      "features": ["F1", "F2", "F3", "F5"]
+    },
+    "EARS_minus_F5": {
+      "name": "Remove evidence agreement ablation",
+      "type": "L2 LogisticRegression",
+      "features": ["F1", "F2", "F3", "F4"]
+    }
+  },
+  "logistic_regression": {
+    "implementation": "sklearn.linear_model.LogisticRegression",
+    "penalty": "l2",
+    "C": 0.1,
+    "solver": "lbfgs",
+    "class_weight": null,
+    "fit_intercept": true,
+    "max_iter": 2000,
+    "tol": 1e-6,
+    "random_state": 20261014,
+    "hyperparameter_selection": "none; fixed identically for B1, B2, EARS and ablations before performance"
+  },
+  "primary_incremental_comparison": "EARS vs B1",
+  "fairness_constraints": [
+    "same claims and y_error",
+    "same outer folds",
+    "same preprocessing fit only on outer-training claims",
+    "same logistic implementation and regularization",
+    "no sealed data and no result-dependent model selection"
+  ]
+}
