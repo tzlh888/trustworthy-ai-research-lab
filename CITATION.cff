@@ -1,16 +1,17 @@
-   cff-version: 1.2.0
+cff-version: 1.2.0
 message: "If you use this research package, please cite the software and the SciFact source paper."
- paper."
+title: "Evidence-Aware Risk Scoring for Scientific Claim Verification"
 type: software
 authors:
-  - family-names:"Tang"
-    given-names:"Zeluohe"
+  - family-names: "Tang"
+    given-names: "Zeluohe"
 version: "1.0.0-rc1"
 license: Apache-2.0
 abstract: >-
-  A protocol-frozen, leakage-controlled study of evidence-aware selective
-  prediction for scientific claim verification. The independent H1 result
-  was inconclusive under the joint AURC and R80 criterion.
+  A protocol-frozen, leakage-controlled study of evidence-aware
+  selective prediction for scientific claim verification.
+  The independent H1 result was inconclusive under the
+  joint AURC and R80 criterion.
 keywords:
   - trustworthy AI
   - scientific claim verification
@@ -21,12 +22,11 @@ references:
   - type: article
     title: "Fact or Fiction: Verifying Scientific Claims"
     authors:
-      - family-names: Wadden
-        given-names: David
-      - family-names: Lin
-        given-names: Shanchuan
-      - family-names: Lo
-        given-names: Kyle
+      - family-names: "Wadden"
+        given-names: "David"
+      - family-names: "Lin"
+        given-names: "Shanchuan"
+      - family-names: "Lo"
+        given-names: "Kyle"
     year: 2020
     doi: "10.18653/v1/2020.emnlp-main.609"
-
