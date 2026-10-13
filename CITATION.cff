@@ -1,13 +1,14 @@
-cff-version: 1.2.0
-message: "If you use this research package, cite the software and the SciFact source paper. Replace the owner placeholder before public release."
-title: "Evidence-Aware Risk Scoring for Scientific Claim Verification"
+   cff-version: 1.2.0
+message: "message: "If you use this research package, please cite the software and the SciFact source
+ paper."
 type: software
 authors:
-  - family-names: "Research Project Owner"
+  - family-names:"Tang"
+    given-names:"Zeluohe"
 version: "1.0.0-rc1"
 license: Apache-2.0
 abstract: >-
-  A preregistered, leakage-controlled study of evidence-aware selective
+  A protocol-frozen, leakage-controlled study of evidence-aware selective
   prediction for scientific claim verification. The independent H1 result
   was inconclusive under the joint AURC and R80 criterion.
 keywords:
