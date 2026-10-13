@@ -1,0 +1,57 @@
+{
+  "artifact_sha256": {
+    "models/phase3b/feature_schema.json": "88b7df738f2cffe87bade26783e1933d902d7cc82fdcb6016ecde814008d59c3",
+    "models/phase3b/final_b1_model_bundle.joblib": "d55844a5b75ab11b62772dca4ccc649c5395b1d3f22df4e8b09de7a11087a7cc",
+    "models/phase3b/final_b2_model_bundle.joblib": "af8f8a87e9eb7d0425a9d9c0deb4e319f8a643e0b4848a85a108d939ecc828c2",
+    "models/phase3b/final_ears_model_bundle.joblib": "5034ebf69dcc98eb4c5f275c77451c8d611f730a9369e01bc700d363d3328d11",
+    "models/phase3b/final_model_numeric_spec.json": "c472f5b0f6035ca1fb70154efc4f76798681db8d5b8d2084f831cb6b62d9d90b",
+    "models/phase3b/fit_serialization_check.csv": "28206a30c1b92edefd5161a4e0f11a5f1e3526adccdc356a5708a68cb18135c4",
+    "models/phase3b/training_config.json": "4a76da98bf37e0620c85b92c9eb1d65a5d1e56726596306f462860e629225a0d",
+    "models/phase3b/training_log.json": "2b556541ddb400b7231fe0ce2287fa059599c929359cebe3761b4f3278371b82"
+  },
+  "code_sha256": {
+    "requirements-phase3b.txt": "dd46563bce37428cef7b6ed450bd63a89847f59e15bad0c0223b0c778ad595c6",
+    "scripts/compare_phase3b_runs.py": "4aa47acd591a99a21a430e96bedb5d20e791cda7be52933fd5cb2594c40cac43",
+    "scripts/run_phase3b_evaluate.py": "1c87c83099797d9a898b63b01dc4c265e3a3d8d61c7f0ce780c6c27417d8fcd1",
+    "scripts/run_phase3b_inference.py": "6326b0604eea2241c47efd9a3ae63fd9225068ef7b9878e3fd0c613a7938f4a8",
+    "scripts/run_phase3b_train.py": "8d6e3a2c568cbec30dbc7f27a91405048004af01acbe52c5bcb5f59d9a264198",
+    "src/trustworthy_ai_lab/phase3b.py": "c99095160b67eb4ab99bfb6e418e8fff90eabd82e7e5f58d155a8bd21b4bc7d5",
+    "tests/test_phase3b.py": "ee7d2183ccc7029767d5c3c65b505927232ff42b7badc1bc407030b358d18a76"
+  },
+  "created_at_utc": "2026-10-13T17:09:45.058115+00:00",
+  "git_commit": "HEAD",
+  "git_status_entries_at_freeze": 58,
+  "internal_test_content_accessed_before_freeze": false,
+  "phase3a_protocol_manifest_sha256": "1bf763ae04a93ab5f58789d530aecf237334cae463c691cad46695f10e99775e",
+  "protocol_version": "phase3a-v1.0.0",
+  "serialization_consistency": {
+    "max_absolute_difference": 1.1102230246251565e-16,
+    "passed": true,
+    "rows_checked": 987,
+    "tolerance": 1e-12
+  },
+  "software_versions": {
+    "joblib": "1.6.0",
+    "numpy": "2.5.4",
+    "pandas": "3.0.6",
+    "platform": "macOS-27.0-arm64-arm-64bit",
+    "python": "3.12.15",
+    "rank-bm25": "0.2.2",
+    "scikit-learn": "1.9.1",
+    "scipy": "1.18.1",
+    "torch": "2.14.1",
+    "transformers": "5.19.0"
+  },
+  "source_fit_artifacts": {
+    "reports/phase1/e1_fit_predictions.jsonl": "12177fd3c5e22c1de9bc0ac5688e5704f147efa168937cb368bab7b8920d1ec9",
+    "reports/phase1/fit_retrieval_results.jsonl": "3f5707cbf5e4342d8d49a3c68ece470f6076d29c44c35a7e21a143efb095b201",
+    "splits/train_split_manifest.json": "31dfa063adcac11d952ca69ea5808c4e7c1ebe0df877a91a9b392ded74d8c1fb"
+  },
+  "status": "FINAL_MODELS_FROZEN_BEFORE_TEST_ACCESS",
+  "training_population": {
+    "correct": 154,
+    "eligible_claims": 329,
+    "errors": 175,
+    "partition": "fit"
+  }
+}

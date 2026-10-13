@@ -132,17 +132,20 @@ Run all tests:
 PYTHONPATH=. pytest -q
 ```
 
+In the public checkout, tests requiring excluded raw data, claim-level predictions, complete internal reports, or joblib bundles are explicitly skipped. Deployment, safety, publication, aggregate-result, and cloud-artifact tests run normally. Set `RUN_FULL_RESEARCH_TESTS=1` only in the complete private reproducibility package.
+
 Detailed environment, seeds, artifacts, and known technical incidents are documented in [REPRODUCIBILITY.md](REPRODUCIBILITY.md).
 
 ## Local Research Demo
 
-The Streamlit interface needs the official SciFact corpus and locally reproduced Phase 3B joblib bundles, which are not included in this release candidate.
+The Streamlit interface downloads the audited official SciFact archive when the corpus is absent, verifies both archive and corpus SHA-256 values, and loads the frozen B1/EARS models from verified lossless numeric JSON parameters. It does not deserialize joblib in the public deployment.
 
 ```bash
+pip install -r requirements.txt
 streamlit run demo/app.py
 ```
 
-The demo displays retrieved documents, selected sentences, raw NLI scores, the E1 category, and uncalibrated B1/EARS ranking scores. It does not implement a deployment threshold. See [demo/README.md](demo/README.md).
+The demo displays retrieved documents and traceable document IDs, selected sentences, raw NLI scores, the E1 category, and uncalibrated B1/EARS ranking scores. It does not implement a deployment threshold. Streamlit Community Cloud should be configured for Python 3.12 with `demo/app.py` as the entrypoint. See [demo/README.md](demo/README.md).
 
 ## Repository Map
 

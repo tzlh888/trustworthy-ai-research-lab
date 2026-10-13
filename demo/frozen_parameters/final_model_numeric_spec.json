@@ -1,0 +1,155 @@
+{
+  "methods": {
+    "B1": {
+      "classes": [
+        0,
+        1
+      ],
+      "coefficients": [
+        -0.5037293672938251,
+        -0.47439869296838755,
+        0.9721634616858021,
+        1.2939460805955472
+      ],
+      "converged": true,
+      "feature_ids": [
+        "F1",
+        "F2",
+        "F3"
+      ],
+      "intercept": -0.6329043762332663,
+      "iterations": 11,
+      "preprocessor": {
+        "columns": [
+          "F1_decision_confidence",
+          "F2_support_contradict_margin",
+          "F3_is_contradict",
+          "F3_is_no_relation"
+        ],
+        "means": [
+          0.7954738756081253,
+          0.46458108695846695,
+          0.0,
+          0.0
+        ],
+        "scales": [
+          0.1640720613440793,
+          0.31077609398688494,
+          1.0,
+          1.0
+        ],
+        "standardized": [
+          true,
+          true,
+          false,
+          false
+        ]
+      },
+      "warnings": [
+        "'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', l1_ratio set to a float between 0 and 1 instead of penalty='elasticnet', and C=np.inf instead of penalty=None."
+      ]
+    },
+    "B2": {
+      "classes": [
+        0,
+        1
+      ],
+      "coefficients": [
+        -0.14804304237529015,
+        -0.34925514090988913
+      ],
+      "converged": true,
+      "feature_ids": [
+        "F4",
+        "F5"
+      ],
+      "intercept": 0.12460508103579501,
+      "iterations": 4,
+      "preprocessor": {
+        "columns": [
+          "F4_bm25_top2_normalized_margin",
+          "F5_evidence_conflict_rate"
+        ],
+        "means": [
+          0.14350892800467413,
+          0.11469361438966301
+        ],
+        "scales": [
+          0.11784735961329168,
+          0.26494694158389376
+        ],
+        "standardized": [
+          true,
+          true
+        ]
+      },
+      "warnings": [
+        "'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', l1_ratio set to a float between 0 and 1 instead of penalty='elasticnet', and C=np.inf instead of penalty=None."
+      ]
+    },
+    "EARS": {
+      "classes": [
+        0,
+        1
+      ],
+      "coefficients": [
+        -0.366689609718273,
+        -0.7376131001528098,
+        0.9736680315808302,
+        1.0756676166539627,
+        -0.09525921996599172,
+        -0.45881235001472453
+      ],
+      "converged": true,
+      "feature_ids": [
+        "F1",
+        "F2",
+        "F3",
+        "F4",
+        "F5"
+      ],
+      "intercept": -0.5822414886318383,
+      "iterations": 12,
+      "preprocessor": {
+        "columns": [
+          "F1_decision_confidence",
+          "F2_support_contradict_margin",
+          "F3_is_contradict",
+          "F3_is_no_relation",
+          "F4_bm25_top2_normalized_margin",
+          "F5_evidence_conflict_rate"
+        ],
+        "means": [
+          0.7954738756081253,
+          0.46458108695846695,
+          0.0,
+          0.0,
+          0.14350892800467413,
+          0.11469361438966301
+        ],
+        "scales": [
+          0.1640720613440793,
+          0.31077609398688494,
+          1.0,
+          1.0,
+          0.11784735961329168,
+          0.26494694158389376
+        ],
+        "standardized": [
+          true,
+          true,
+          false,
+          false,
+          true,
+          true
+        ]
+      },
+      "warnings": [
+        "'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', l1_ratio set to a float between 0 and 1 instead of penalty='elasticnet', and C=np.inf instead of penalty=None."
+      ]
+    }
+  },
+  "schema_version": 1,
+  "training_claims": 329,
+  "training_errors": 175
+}

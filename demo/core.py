@@ -1,7 +1,10 @@
 from __future__ import annotations
 
 import math
+import collections
 from typing import Iterable
+
+from trustworthy_ai_lab.aggregation import aggregate_claim
 
 
 DISCLAIMER = (
@@ -42,3 +45,51 @@ def score_language(method: str, score: float, percentile: float | None) -> str:
         f"{method} uncalibrated ranking score: {score:.4f}. {context} "
         "Higher values ranked later in the experiment, but no deployment threshold was selected."
     )
+
+
+def build_demo_retrieval_records(claims, retriever, selector, *, top_k: int, top_sentences: int):
+    """Frozen label-free retrieval path for user-supplied demo claims."""
+    records = []
+    for claim in claims:
+        documents = retriever.retrieve(claim["claim"], top_k=top_k)
+        for document in documents:
+            document["selected_sentences"] = selector.select(
+                claim["claim"], document, top_n=top_sentences
+            )
+        records.append(
+            {
+                "claim_id": claim["id"],
+                "claim_text": claim["claim"],
+                "partition": "user_demo",
+                "retrieved_documents": documents,
+            }
+        )
+    return records
+
+
+def finalize_demo_e1(retrieval_records, pair_predictions):
+    """Apply the unchanged Phase 1 claim aggregation without gold labels."""
+    by_claim = collections.defaultdict(list)
+    for row in pair_predictions:
+        by_claim[int(row["claim_id"])].append(row)
+    output = []
+    for retrieval in retrieval_records:
+        claim_id = int(retrieval["claim_id"])
+        sentence_predictions = sorted(
+            by_claim[claim_id],
+            key=lambda row: (
+                row["doc_rank"], row["selected_sentence_rank"], row["sentence_index"]
+            ),
+        )
+        if len(sentence_predictions) != 15:
+            raise ValueError(f"Expected 15 E1 pairs for claim {claim_id}")
+        output.append(
+            {
+                "claim_id": claim_id,
+                "claim_text": retrieval["claim_text"],
+                "partition": "user_demo",
+                **aggregate_claim(sentence_predictions),
+                "sentence_predictions": sentence_predictions,
+            }
+        )
+    return output

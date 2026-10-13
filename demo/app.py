@@ -2,10 +2,10 @@ from __future__ import annotations
 
 import csv
 import json
+import os
 import sys
 from pathlib import Path
 
-import joblib
 import pandas as pd
 import streamlit as st
 import torch
@@ -17,11 +17,26 @@ for path in (ROOT, SRC):
     if str(path) not in sys.path:
         sys.path.insert(0, str(path))
 
-from demo.core import DISCLAIMER, NO_RELATION_EXPLANATION, descriptive_percentile, score_language, validate_claim
+from demo.cloud_artifacts import (
+    ArtifactDownloadError,
+    ArtifactIntegrityError,
+    CloudArtifactError,
+    ensure_scifact_corpus,
+    load_verified_numeric_models,
+    score_frozen_models,
+)
+from demo.core import (
+    DISCLAIMER,
+    NO_RELATION_EXPLANATION,
+    build_demo_retrieval_records,
+    descriptive_percentile,
+    finalize_demo_e1,
+    score_language,
+    validate_claim,
+)
 from trustworthy_ai_lab.data import load_jsonl
 from trustworthy_ai_lab.nli import NLIEngine
 from trustworthy_ai_lab.phase2_protocol import extract_features
-from trustworthy_ai_lab.phase3b import build_blind_retrieval_records, finalize_e1_blind, score_bundle
 from trustworthy_ai_lab.pipeline import build_e1_pairs
 from trustworthy_ai_lab.retrieval import BM25Retriever
 from trustworthy_ai_lab.sentence_selection import IDFOverlapSentenceSelector
@@ -30,10 +45,22 @@ from trustworthy_ai_lab.sentence_selection import IDFOverlapSentenceSelector
 st.set_page_config(page_title="EARS Research Demo", page_icon="🔬", layout="wide")
 
 
-@st.cache_resource(show_spinner="Loading the frozen corpus and retrieval index...")
-def load_retrieval():
-    corpus_path = ROOT / "data/raw/scifact/corpus.jsonl"
+@st.cache_resource(show_spinner="Verifying public runtime artifacts...")
+def prepare_cloud_artifacts():
+    return ensure_scifact_corpus(ROOT), load_verified_numeric_models(ROOT)
+
+
+@st.cache_resource(show_spinner="Loading the verified SciFact corpus and retrieval index...")
+def load_retrieval(corpus_path_text: str):
+    corpus_path = Path(corpus_path_text)
     corpus = load_jsonl(corpus_path)
+    if len(corpus) != 5_183:
+        raise ArtifactIntegrityError(
+            f"Verified SciFact corpus has an unexpected row count ({len(corpus)} rather than 5,183)."
+        )
+    doc_ids = [int(row["doc_id"]) for row in corpus]
+    if len(set(doc_ids)) != len(doc_ids):
+        raise ArtifactIntegrityError("Verified SciFact corpus contains duplicate document IDs.")
     return corpus, BM25Retriever(corpus, k1=1.5, b=0.75, epsilon=0.25), IDFOverlapSentenceSelector(corpus)
 
 
@@ -41,17 +68,17 @@ def load_retrieval():
 def load_nli():
     config = json.loads((ROOT / "configs/phase1_baseline.json").read_text(encoding="utf-8"))
     nli = config["nli"]
-    device = "mps" if torch.backends.mps.is_available() else "cpu"
+    device_request = os.environ.get("EARS_DEMO_DEVICE", "auto").casefold()
+    if device_request not in {"auto", "cpu"}:
+        raise ValueError("EARS_DEMO_DEVICE must be 'auto' or 'cpu'.")
+    device = "mps" if device_request == "auto" and torch.backends.mps.is_available() else "cpu"
     engine = NLIEngine(nli["model_id"], nli["revision"], device=device, max_length=nli["max_length"])
     return engine, device, nli["formal_batch_size"] if device == "mps" else 4
 
 
 @st.cache_resource(show_spinner=False)
 def load_risk_models():
-    return {
-        "B1": joblib.load(ROOT / "models/phase3b/final_b1_model_bundle.joblib"),
-        "EARS": joblib.load(ROOT / "models/phase3b/final_ears_model_bundle.joblib"),
-    }
+    return load_verified_numeric_models(ROOT)
 
 
 @st.cache_data(show_spinner=False)
@@ -64,37 +91,47 @@ def frozen_score_context():
     return {method: [float(row[f"risk_{method}"]) for row in rows] for method in ("B1", "EARS")}
 
 
-def required_paths() -> list[Path]:
-    return [
-        ROOT / "data/raw/scifact/corpus.jsonl",
-        ROOT / "configs/phase1_baseline.json",
-        ROOT / "models/phase3b/final_b1_model_bundle.joblib",
-        ROOT / "models/phase3b/final_ears_model_bundle.joblib",
-    ]
-
-
-def run_claim(claim_text: str):
-    corpus, retriever, selector = load_retrieval()
-    retrieval = build_blind_retrieval_records([{"id": 0, "claim": claim_text}], retriever, selector, top_k=20, top_sentences=3)
+def run_claim(claim_text: str, corpus_path: Path):
+    corpus, retriever, selector = load_retrieval(str(corpus_path))
+    retrieval = build_demo_retrieval_records(
+        [{"id": 0, "claim": claim_text}], retriever, selector, top_k=20, top_sentences=3
+    )
     pairs = build_e1_pairs(retrieval)
     engine, device, batch_size = load_nli()
     predictions, stats = engine.predict(pairs, batch_size=batch_size)
-    baseline = finalize_e1_blind(retrieval, predictions)[0]
+    baseline = finalize_demo_e1(retrieval, predictions)[0]
     features = {"claim_id": 0, **extract_features(baseline, retrieval[0])}
-    models = load_risk_models()
-    risks = {method: score_bundle(bundle, [features])[0] for method, bundle in models.items()}
+    model_spec = load_risk_models()
+    risks = {method: values[0] for method, values in score_frozen_models(model_spec, [features]).items()}
     return retrieval[0], baseline, features, risks, device, stats
 
 
 st.title("Evidence-Aware Risk Scoring - Research Demo")
 st.error(DISCLAIMER)
-st.caption("Frozen study: H1 INCONCLUSIVE. H2 evidence degradation and H3 calibration were not evaluated.")
+st.caption("Frozen study: H1 INCONCLUSIVE. H2 evidence degradation and H3 calibration were NOT EVALUATED.")
 
-missing = [path.relative_to(ROOT).as_posix() for path in required_paths() if not path.is_file()]
-if missing:
-    st.warning("This local demo requires non-public data/model artifacts. Missing: " + ", ".join(missing))
-    st.info("Follow demo/README.md to obtain official SciFact data and reproduce the frozen model artifacts. These files are intentionally excluded from the public release candidate.")
+try:
+    verified_corpus, _ = prepare_cloud_artifacts()
+except ArtifactDownloadError as exc:
+    st.error(f"SciFact download failed: {exc}")
+    st.info("The app did not load unverified fallback data. Retry after the official source is reachable.")
     st.stop()
+except ArtifactIntegrityError as exc:
+    st.error(f"Artifact integrity check failed: {exc}")
+    st.info("The app stopped before retrieval or model scoring. Clear the app cache and restart; do not bypass the checksum gate.")
+    st.stop()
+except CloudArtifactError as exc:
+    st.error(f"Runtime artifact setup failed: {exc}")
+    st.stop()
+
+st.success(
+    "Runtime artifacts verified: official SciFact corpus "
+    f"({verified_corpus.size_bytes / 1_000_000:.1f} MB) and frozen B1/EARS numeric parameters."
+)
+st.caption(
+    "SciFact source: Allen Institute for AI official release. Corpus abstracts are S2ORC material under ODC-By 1.0. "
+    f"Runtime source: {verified_corpus.source}."
+)
 
 claim = st.text_area("Scientific claim", placeholder="Example: A scientific intervention changes a measured outcome.", height=100, max_chars=1000)
 run = st.button("Run frozen research pipeline", type="primary", disabled=not claim.strip())
@@ -103,9 +140,12 @@ if run:
     try:
         cleaned = validate_claim(claim)
         with st.spinner("Retrieving abstracts and running 15 NLI sentence pairs..."):
-            retrieval, baseline, features, risks, device, stats = run_claim(cleaned)
+            retrieval, baseline, features, risks, device, stats = run_claim(cleaned, verified_corpus.path)
     except Exception as exc:
-        st.exception(exc)
+        st.error(
+            "Inference could not complete. The verified artifacts remain unchanged. "
+            f"Failure type: {type(exc).__name__}. Please retry after the pinned model is reachable."
+        )
         st.stop()
 
     st.subheader("Frozen E1 output")

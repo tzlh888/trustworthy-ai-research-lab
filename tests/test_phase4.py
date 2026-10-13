@@ -40,8 +40,8 @@ def test_phase4_primary_intervals_and_conclusion_are_unchanged() -> None:
 def test_phase4_public_narrative_preserves_result_boundaries() -> None:
     paths = [
         ROOT / "paper/EARS_selective_prediction_paper.md",
-        ROOT / "release/github/README.md",
-        ROOT / "release/github/LIMITATIONS.md",
+        ROOT / "README.md",
+        ROOT / "LIMITATIONS.md",
     ]
     for path in paths:
         text = path.read_text(encoding="utf-8")
@@ -54,14 +54,14 @@ def test_phase4_public_narrative_preserves_result_boundaries() -> None:
 
 
 def test_phase4_application_description_is_exactly_150_words() -> None:
-    text = (ROOT / "application/PROJECT_DESCRIPTION_150_WORDS.md").read_text(encoding="utf-8")
+    text = (ROOT / "portfolio/PROJECT_DESCRIPTION_150_WORDS.md").read_text(encoding="utf-8")
     body = text.split("\n\n", 1)[1]
     assert len(body.split()) == 150
 
 
 def test_phase4_pdf_lengths_and_figures() -> None:
-    assert len(PdfReader(ROOT / "output/pdf/EARS_selective_prediction_paper.pdf").pages) == 8
-    assert len(PdfReader(ROOT / "output/pdf/EARS_one_page_research_summary.pdf").pages) == 1
+    assert len(PdfReader(ROOT / "paper/EARS_selective_prediction_paper.pdf").pages) == 8
+    assert len(PdfReader(ROOT / "paper/EARS_one_page_research_summary.pdf").pages) == 1
     for stem in (
         "figure_1_risk_coverage_fit_vs_test",
         "figure_2_aurc_and_r80_comparison",
@@ -69,17 +69,20 @@ def test_phase4_pdf_lengths_and_figures() -> None:
         "figure_4_no_relation_sensitivity",
         "table_1_representative_failure_cases",
     ):
-        assert (ROOT / "reports/phase4/figures" / f"{stem}.png").stat().st_size > 10_000
-        assert (ROOT / "reports/phase4/figures" / f"{stem}.svg").stat().st_size > 1_000
+        assert (ROOT / "reports/figures" / f"{stem}.png").stat().st_size > 10_000
+        assert (ROOT / "reports/figures" / f"{stem}.svg").stat().st_size > 1_000
 
 
 def test_phase4_release_candidate_excludes_private_artifacts() -> None:
-    release = ROOT / "release/github"
     forbidden_names = {
         "claims_train.jsonl", "claims_dev.jsonl", "claims_test.jsonl",
         "corpus.jsonl", ".env", "secrets.toml",
     }
     forbidden_suffixes = {".joblib", ".pt", ".ckpt", ".safetensors"}
-    files = [path for path in release.rglob("*") if path.is_file()]
+    ignored_parts = {".git", ".cache", ".venv", "__pycache__"}
+    files = [
+        path for path in ROOT.rglob("*")
+        if path.is_file() and not ignored_parts.intersection(path.relative_to(ROOT).parts)
+    ]
     assert not [path for path in files if path.name in forbidden_names]
     assert not [path for path in files if path.suffix in forbidden_suffixes]

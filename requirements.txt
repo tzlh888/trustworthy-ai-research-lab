@@ -1,12 +1,9 @@
-# Phase 1 candidate environment. These versions were recorded from PyPI on
-# 2026-10-13 but were NOT installed or exercised as a complete stack in Phase 0.
+# Streamlit Community Cloud runtime dependencies for demo/app.py.
+# Community Cloud discovers this root requirements.txt because no dependency
+# file is placed beside the entrypoint. Versions match the frozen local run.
 numpy==2.5.4
-scipy==1.18.1
 pandas==3.0.6
-scikit-learn==1.9.1
 torch==2.14.1
 transformers==5.19.0
-sentence-transformers==6.1.0
 rank-bm25==0.2.2
 streamlit==1.65.0
-pytest==9.1.1

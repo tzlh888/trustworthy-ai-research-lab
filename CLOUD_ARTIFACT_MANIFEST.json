@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "created_at_utc": "2026-10-13T22:10:39Z",
+  "scope": "Streamlit Cloud deployment-critical public files",
+  "source_commit_before_repair": "6d49ad732d6e73ecc46ba8b3ae3be75c0debab2f",
+  "scifact": {
+    "included_in_repository": false,
+    "official_archive_url": "https://scifact.s3-us-west-2.amazonaws.com/release/latest/data.tar.gz",
+    "archive_bytes": 3115079,
+    "archive_sha256": "11c621288d41ac144d29b13b0f8503b3820b7d6e8b1f6ff24dff335c196d76be",
+    "archive_member": "data/corpus.jsonl",
+    "corpus_bytes": 8307875,
+    "corpus_rows": 5183,
+    "corpus_sha256": "b8d6c89624cb2ed74dee8938effc4f5d8bd2086887880af8110d64be4ceade62"
+  },
+  "nli": {
+    "model_id": "cross-encoder/nli-distilroberta-base",
+    "revision": "b14d131f9d32668a5e6a982729b57ff6ed5dfcbd",
+    "input_order": {
+      "premise": "selected evidence sentence",
+      "hypothesis": "scientific claim"
+    },
+    "max_length": 512,
+    "id2label": {
+      "0": "contradiction",
+      "1": "entailment",
+      "2": "neutral"
+    }
+  },
+  "frozen_model_source_hashes": {
+    "manifest_sha256": "469cf52a4924a356b3fe224526cd444d82728d0534d7cb4d89848bc923449ea3",
+    "numeric_spec_sha256": "c472f5b0f6035ca1fb70154efc4f76798681db8d5b8d2084f831cb6b62d9d90b",
+    "trusted_original_b1_joblib_sha256": "d55844a5b75ab11b62772dca4ccc649c5395b1d3f22df4e8b09de7a11087a7cc",
+    "trusted_original_ears_joblib_sha256": "5034ebf69dcc98eb4c5f275c77451c8d611f730a9369e01bc700d363d3328d11"
+  },
+  "files": [
+    {
+      "path": "configs/phase1_baseline.json",
+      "role": "Pinned NLI model and inference configuration",
+      "bytes": 3292,
+      "sha256": "0aeebd6a8544294e99cf1df51c2110b2666de4c7f029ba47e0c241e30a604b54"
+    },
+    {
+      "path": "demo/app.py",
+      "role": "Streamlit entry point",
+      "bytes": 9422,
+      "sha256": "594a37e4479d4fbb22e85c135652be4de61366baed4db774e77a03a32a421648"
+    },
+    {
+      "path": "demo/cloud_artifacts.py",
+      "role": "Verified corpus and numeric-model loader",
+      "bytes": 11228,
+      "sha256": "fa76405a778f94e06af4d9885cd5b5e361a6c7b8a16658c263e4bbc544213fb5"
+    },
+    {
+      "path": "demo/core.py",
+      "role": "Label-free demo retrieval and frozen aggregation helpers",
+      "bytes": 3620,
+      "sha256": "d20f3d4dbd7f76d6b6fccd2eedc16bab0ed95ad3beb3e311cab1814023005ddd"
+    },
+    {
+      "path": "demo/frozen_parameters/final_model_manifest.json",
+      "role": "Original Phase 3B freeze manifest",
+      "bytes": 3041,
+      "sha256": "469cf52a4924a356b3fe224526cd444d82728d0534d7cb4d89848bc923449ea3"
+    },
+    {
+      "path": "demo/frozen_parameters/final_model_numeric_spec.json",
+      "role": "Lossless B1/EARS numeric parameters",
+      "bytes": 4151,
+      "sha256": "c472f5b0f6035ca1fb70154efc4f76798681db8d5b8d2084f831cb6b62d9d90b"
+    },
+    {
+      "path": "requirements.txt",
+      "role": "Streamlit Community Cloud dependencies",
+      "bytes": 317,
+      "sha256": "107046871aff0ce8f17ad7e9907ab13b7f7495e0267c4d9dfdae0699d5000a29"
+    }
+  ],
+  "repository_exclusions": [
+    "raw SciFact corpus and claims",
+    "Internal Test claim-level truth and predictions",
+    "pickle and joblib model bundles",
+    "Hugging Face model weights",
+    "credentials and local caches"
+  ]
+}
