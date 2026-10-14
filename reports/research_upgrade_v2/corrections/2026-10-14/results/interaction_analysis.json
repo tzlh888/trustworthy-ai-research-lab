@@ -1,0 +1,45 @@
+{
+  "coefficients": {
+    "F1_decision_confidence": -0.33433510105204084,
+    "F1_x_F4": -0.08959768077125253,
+    "F1_x_F5": -0.09568806319989026,
+    "F2_support_contradict_margin": -0.6879146406747514,
+    "F3_is_contradict": 0.9669312508181123,
+    "F3_is_no_relation": 1.1931736377947044,
+    "F4_bm25_top2_normalized_margin": -0.005357693680367387,
+    "F4_x_F5": -0.06832302972130452,
+    "F5_evidence_conflict_rate": -0.17441649894463
+  },
+  "evaluation_n": 188,
+  "fit_n": 329,
+  "metrics": {
+    "aurc": 0.2652801456531702,
+    "contradict_accepted": 56,
+    "contradict_accepted_errors": 5,
+    "contradict_coverage": 0.875,
+    "contradict_selective_risk": 0.08928571428571429,
+    "contradict_total": 64,
+    "error_detection_auroc": 0.820199275362319,
+    "errors_at_80": 59,
+    "k80": 150,
+    "largest_tie_block": 1,
+    "method": "INTERACTION",
+    "n": 188,
+    "sr80": 0.3933333333333333,
+    "sr80_tie_best": 0.3933333333333333,
+    "sr80_tie_worst": 0.3933333333333333,
+    "support_accepted": 94,
+    "support_accepted_errors": 54,
+    "support_coverage": 0.7580645161290323,
+    "support_selective_risk": 0.574468085106383,
+    "support_total": 124,
+    "tie_block_count": 0
+  },
+  "status": "POST_HOC_EXPLORATORY",
+  "terms": [
+    "F4*F5",
+    "F1*F4",
+    "F1*F5"
+  ],
+  "warning": "Interaction terms were not a confirmatory endpoint and coefficients are not causal effects."
+}

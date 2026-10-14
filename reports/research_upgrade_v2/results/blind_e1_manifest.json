@@ -1,0 +1,42 @@
+{
+  "private_cache_artifact_sha256": {
+    "blind_e1_features.jsonl": "3c1ea9104569f18882881d5ff2861696c06ed723fff208f66fd0e7a60f35c941"
+  },
+  "claim_count": 1109,
+  "completed_at_utc": "2026-10-13T22:55:43.901663+00:00",
+  "device": "mps",
+  "device_note": "MPS selected after successful model transfer",
+  "gold_labels_deserialized_for_scoring": false,
+  "inference_stats": {
+    "batch_size": 32,
+    "device": "mps",
+    "elapsed_seconds": 59.26344495799276,
+    "pair_count": 16635,
+    "pairs_per_second": 280.69579842669043,
+    "truncated_count": 0
+  },
+  "injected_pair_count": 900,
+  "injection_stats": {
+    "batch_size": 32,
+    "device": "mps",
+    "elapsed_seconds": 3.30519062501844,
+    "pair_count": 900,
+    "pairs_per_second": 272.29896913887643,
+    "truncated_count": 0
+  },
+  "model_id": "cross-encoder/nli-distilroberta-base",
+  "pair_count": 16635,
+  "partition_counts": {
+    "calibration": 141,
+    "dev": 300,
+    "fit": 527,
+    "internal_test": 141
+  },
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "protocol_sha256": "70ae8596df22c22131f895dc888a545b9e3f3512a845f0735977cc46250d2301",
+  "python": "3.12.15",
+  "revision": "b14d131f9d32668a5e6a982729b57ff6ed5dfcbd",
+  "started_at_utc": "2026-10-13T22:54:31.015936+00:00",
+  "status": "PREDICTIONS_FROZEN_BEFORE_V2_EVALUATION_LABEL_ACCESS",
+  "verifier": "e1"
+}

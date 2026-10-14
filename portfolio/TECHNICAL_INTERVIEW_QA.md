@@ -1,8 +1,12 @@
 # Ten Technical Interview Questions with Evidence-Based Answers
 
+`AI-GENERATED PREPARATION MATERIAL — NOT OWNER EVIDENCE`
+
+These project-level reference answers support study. They do not show that the owner has personally answered or independently verified the material. Owner evidence requires the separate dated verification worksheet.
+
 ## 1. What exactly does EARS predict?
 
-EARS ranks the probability-like score of the frozen E1 verifier being wrong, using a logistic regression trained on fit-only error labels. The score is not calibrated because H3 was not executed, so I call it a risk score rather than a true error probability.
+EARS ranks the probability-like score of the frozen E1 verifier being wrong, using a logistic regression trained on fit-only error labels. The score is not calibrated because historical H3 was not executed, so the project calls it a risk score rather than a true error probability.
 
 ## 2. Why is B1 the primary comparator instead of maximum confidence?
 
@@ -10,19 +14,19 @@ B0 maximum confidence is reported, but B1 is the fair ablation for the research 
 
 ## 3. How did you prevent test leakage?
 
-I froze the Phase 3A protocol, trained final risk models only on eligible fit claims, saved model hashes, loaded only test claim text for inference, and hashed E1 predictions, F1-F5, and risk scores before deserializing authentic test evidence labels. The model was never retrained after label access.
+The Phase 3A workflow froze the protocol, trained final risk models only on eligible fit claims, saved model hashes, loaded only test claim text for inference, and hashed E1 predictions, F1-F5, and risk scores before deserializing authentic test evidence labels. The model was never retrained after label access.
 
 ## 4. Why use claim groups in splitting and bootstrap?
 
-Claims can share cited documents or identical normalized text. Treating them as independent could leak related evidence across splits and understate uncertainty. I formed connected components using those links before splitting and resampled eligible-containing groups, not individual claims, in the paired bootstrap.
+Claims can share cited documents or identical normalized text. Treating them as independent could leak related evidence across splits and understate uncertainty. The workflow formed connected components using those links before splitting and resampled eligible-containing groups, not individual claims, in the paired bootstrap.
 
 ## 5. What is the difference between AURC and R80?
 
-AURC averages selective risk over every accepted-prefix size from one to n, so it measures global ordering. R80 measures one preregistered prefix: 70 accepted claims out of 88. EARS can improve many prefixes and therefore AURC while still moving unfavorable errors across the specific R80 boundary.
+AURC averages selective risk over every accepted-prefix size from one to n, so it measures global ordering. R80 measures one internally prespecified prefix: 70 accepted claims out of 88. EARS can improve many prefixes and therefore AURC while still moving unfavorable errors across the specific R80 boundary.
 
 ## 6. Why was H1 inconclusive if the AURC confidence interval excluded zero?
 
-The preregistered joint rule required both the AURC and R80 EARS-minus-B1 95% CI upper bounds to be strictly below zero. The R80 point estimate was positive and its interval was [0, 0.063492], so the joint criterion failed. Changing the rule after seeing results would be outcome-driven analysis.
+The internally frozen joint rule required both the AURC and R80 EARS-minus-B1 95% CI upper bounds to be strictly below zero. The R80 point estimate was positive and its interval was [0, 0.063492], so the joint criterion failed. Changing the rule after seeing results would be outcome-driven analysis.
 
 ## 7. What did NO_RELATION mean in this experiment?
 
@@ -38,5 +42,5 @@ Only 88 claims and 39 eligible connected groups entered the primary test. The In
 
 ## 10. What would be a scientifically valid next step?
 
-I would preregister either an H2 evidence-degradation study, an H3 calibration study using the untouched calibration partition, or an external replication with a stronger scientific verifier. Any modified model must be evaluated on new independent data because the current Internal Test labels have already been used.
+A scientifically valid next step would preregister either an H2 evidence-degradation study, an H3 calibration study using the untouched calibration partition, or an external replication with a stronger scientific verifier. Any modified model must be evaluated on new independent data because the current Internal Test labels have already been used.
 

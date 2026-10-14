@@ -1,0 +1,22 @@
+{
+  "accepted_each": 70,
+  "b1_only_claim_ids": [
+    246,
+    667,
+    670,
+    765,
+    1138
+  ],
+  "b1_only_count": 5,
+  "ears_only_claim_ids": [
+    85,
+    86,
+    223,
+    420,
+    1134
+  ],
+  "ears_only_count": 5,
+  "errors_entering_when_B1_to_EARS": 5,
+  "errors_leaving_when_B1_to_EARS": 3,
+  "shared_accepted": 65
+}

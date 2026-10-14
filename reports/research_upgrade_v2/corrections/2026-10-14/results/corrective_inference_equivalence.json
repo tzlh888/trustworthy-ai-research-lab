@@ -1,0 +1,30 @@
+{
+  "comparisons": {
+    "e1": {
+      "claim_keys_match": true,
+      "comparison_excludes_timestamps_and_non_scoring_metadata": true,
+      "corrected_claim_count": 1109,
+      "corrected_private_artifact_sha256": "3c1ea9104569f18882881d5ff2861696c06ed723fff208f66fd0e7a60f35c941",
+      "historical_claim_count": 1109,
+      "historical_private_artifact_sha256": "3c1ea9104569f18882881d5ff2861696c06ed723fff208f66fd0e7a60f35c941",
+      "maximum_absolute_numeric_difference": 0.0,
+      "predicted_label_differences": 0,
+      "scoring_rows_with_any_difference": 0,
+      "status": "VERIFIED"
+    },
+    "e1_v2": {
+      "claim_keys_match": true,
+      "comparison_excludes_timestamps_and_non_scoring_metadata": true,
+      "corrected_claim_count": 827,
+      "corrected_private_artifact_sha256": "e508ae3574534f9a5541058c978685b89876abe3548e0d59d6d2e8d4ca35774f",
+      "historical_claim_count": 827,
+      "historical_private_artifact_sha256": "e508ae3574534f9a5541058c978685b89876abe3548e0d59d6d2e8d4ca35774f",
+      "maximum_absolute_numeric_difference": 0.0,
+      "predicted_label_differences": 0,
+      "scoring_rows_with_any_difference": 0,
+      "status": "VERIFIED"
+    }
+  },
+  "evidence_class": "post_study_corrective_replay_equivalence",
+  "historical_dev_labels_previously_observed": true
+}

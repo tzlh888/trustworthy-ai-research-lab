@@ -1,8 +1,10 @@
 # Final Public Research Protocol
 
+> **Terminology correction (14 October 2026):** This document records the historical internally frozen protocol. “Confirmatory” below refers only to that internal prospective analysis plan; no third-party or publicly registered preregistration is claimed. The used Internal Test is no longer unseen.
+
 ## Question and status
 
-The confirmatory question was whether Full EARS improved both discrete AURC and selective risk at 80% coverage relative to the matched NLI-only B1 risk model on a previously unseen Internal Test.
+The internally prespecified question was whether Full EARS improved both discrete AURC and selective risk at 80% coverage relative to the matched NLI-only B1 risk model on the then-unseen Internal Test.
 
 Protocol version `phase3a-v1.0.0` was frozen before final risk-model training and Internal Test access. The joint H1 criterion required both EARS-minus-B1 point differences to be negative and both paired 95% CI upper bounds to be strictly below zero.
 

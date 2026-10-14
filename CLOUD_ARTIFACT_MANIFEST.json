@@ -43,8 +43,8 @@
     {
       "path": "demo/app.py",
       "role": "Streamlit entry point",
-      "bytes": 9422,
-      "sha256": "594a37e4479d4fbb22e85c135652be4de61366baed4db774e77a03a32a421648"
+      "bytes": 9465,
+      "sha256": "c7c28d1c91a437441461c08b61de1603bf9ea63e0607a52da578d5cbb7f1b271"
     },
     {
       "path": "demo/cloud_artifacts.py",

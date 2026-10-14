@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "created_date": "2026-10-14",
+  "status": "POST_STUDY_CORRECTIVE_AUDIT_SPECIFICATION",
+  "not_a_preregistration": true,
+  "historical_protocol": {
+    "path": "configs/research_upgrade_v2_protocol.json",
+    "sha256": "70ae8596df22c22131f895dc888a545b9e3f3512a845f0735977cc46250d2301",
+    "must_remain_unchanged": true
+  },
+  "historical_v2_disclosure": {
+    "dev_results_previously_observed": true,
+    "full_dev_json_records_deserialized_for_partition_id_discovery": true,
+    "demonstrated_gold_annotation_use_in_scoring": false,
+    "historical_perfect_label_blindness_claim_withdrawn": true
+  },
+  "corrective_inference": {
+    "projection_fields": [
+      "id",
+      "claim"
+    ],
+    "validate_every_jsonl_record": true,
+    "reject_duplicate_top_level_keys": true,
+    "reject_duplicate_claim_ids_within_partition": true,
+    "partition_aware_identity": true,
+    "output_scope": "reports/research_upgrade_v2/corrections/2026-10-14/results",
+    "private_cache_scope": ".cache/research_upgrade_v2_correction/2026-10-14"
+  },
+  "reporting_repairs": {
+    "permutation_importance_term": "marginal permutation importance",
+    "injection_term": "inject_deterministically_sampled_out_of_retrieval_document",
+    "overlap_sensitivity": [
+      "normalized_claim_text_exclusion_claim_level",
+      "normalized_claim_text_exclusion_group_level",
+      "shared_cited_document_exclusion_claim_level",
+      "shared_cited_document_exclusion_group_level"
+    ],
+    "all_scifact_dev_corrections_are_post_hoc": true
+  },
+  "chronology": {
+    "public_git_history_first_release_date": "2026-10-13",
+    "latest_correction_date": "2026-10-14",
+    "qualified_statement": "Research conducted in October 2026; exact execution chronology is documented only where supported by available records.",
+    "unsupported_completed_future_end_date_removed_from_authoritative_paper": true,
+    "third_party_preregistration_evidence": false
+  }
+}

@@ -4,7 +4,7 @@
 
 **READY FOR OWNER REVIEW AND PUSH; NOT YET DEPLOYED.** The public candidate now has a verified runtime path for the official SciFact corpus and the frozen B1/EARS models. No model was retrained, no experiment result was recomputed or changed, and no remote Git action was performed.
 
-The repaired app preserves the scientific boundary statements: H1 is **INCONCLUSIVE** under the preregistered joint criterion; H2 and H3 are **NOT EVALUATED**; B1/EARS outputs are uncalibrated ranking scores; `NO_RELATION` is not Evidence Insufficient; and the interface is not suitable for medicine or other high-risk fact checking.
+The repaired app preserves the scientific boundary statements: H1 is **INCONCLUSIVE** under the internally protocol-frozen joint criterion; no verified external preregistration is claimed; H2 and H3 are **NOT EVALUATED**; B1/EARS outputs are uncalibrated ranking scores; `NO_RELATION` is not Evidence Insufficient; and the interface is not suitable for medicine or other high-risk fact checking.
 
 ## Before and After
 

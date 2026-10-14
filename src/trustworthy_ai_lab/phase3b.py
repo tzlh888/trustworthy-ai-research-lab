@@ -223,33 +223,181 @@ def extract_fit_rows(
     return sorted(rows, key=lambda row: row["claim_id"])
 
 
-ID_PATTERN = re.compile(r'"id"\s*:\s*(\d+)')
-CLAIM_KEY_PATTERN = re.compile(r'"claim"\s*:')
+_JSON_NUMBER = re.compile(r"-?(?:0|[1-9][0-9]*)(?:\.[0-9]+)?(?:[eE][+-]?[0-9]+)?")
+_HEX = frozenset("0123456789abcdefABCDEF")
+
+
+def _skip_space(source: str, index: int) -> int:
+    while index < len(source) and source[index] in " \t\r\n":
+        index += 1
+    return index
+
+
+def _skip_json_string(source: str, index: int) -> int:
+    """Validate and skip one JSON string without constructing its value."""
+    if index >= len(source) or source[index] != '"':
+        raise ValueError("Expected JSON string")
+    index += 1
+    while index < len(source):
+        char = source[index]
+        if char == '"':
+            return index + 1
+        if ord(char) < 0x20:
+            raise ValueError("Unescaped control character in JSON string")
+        if char != "\\":
+            index += 1
+            continue
+        index += 1
+        if index >= len(source) or source[index] not in '"\\/bfnrtu':
+            raise ValueError("Invalid JSON string escape")
+        if source[index] == "u":
+            digits = source[index + 1 : index + 5]
+            if len(digits) != 4 or any(char not in _HEX for char in digits):
+                raise ValueError("Invalid JSON unicode escape")
+            index += 5
+        else:
+            index += 1
+    raise ValueError("Unterminated JSON string")
+
+
+def _skip_json_value(source: str, index: int, *, depth: int = 0) -> int:
+    """Validate and skip a JSON value without materializing annotation content."""
+    if depth > 100:
+        raise ValueError("JSON nesting exceeds the label-blind parser limit")
+    index = _skip_space(source, index)
+    if index >= len(source):
+        raise ValueError("Missing JSON value")
+    char = source[index]
+    if char == '"':
+        return _skip_json_string(source, index)
+    if char == "[":
+        index = _skip_space(source, index + 1)
+        if index < len(source) and source[index] == "]":
+            return index + 1
+        while True:
+            index = _skip_json_value(source, index, depth=depth + 1)
+            index = _skip_space(source, index)
+            if index >= len(source):
+                raise ValueError("Unterminated JSON array")
+            if source[index] == "]":
+                return index + 1
+            if source[index] != ",":
+                raise ValueError("Expected comma in JSON array")
+            index = _skip_space(source, index + 1)
+    if char == "{":
+        index = _skip_space(source, index + 1)
+        if index < len(source) and source[index] == "}":
+            return index + 1
+        while True:
+            index = _skip_json_string(source, index)
+            index = _skip_space(source, index)
+            if index >= len(source) or source[index] != ":":
+                raise ValueError("Expected colon in JSON object")
+            index = _skip_json_value(source, index + 1, depth=depth + 1)
+            index = _skip_space(source, index)
+            if index >= len(source):
+                raise ValueError("Unterminated JSON object")
+            if source[index] == "}":
+                return index + 1
+            if source[index] != ",":
+                raise ValueError("Expected comma in JSON object")
+            index = _skip_space(source, index + 1)
+    for literal in ("true", "false", "null"):
+        if source.startswith(literal, index):
+            return index + len(literal)
+    match = _JSON_NUMBER.match(source, index)
+    if match is not None:
+        return match.end()
+    raise ValueError("Invalid JSON value")
+
+
+def _project_claim_record(source: str, *, line_number: int) -> dict[str, Any]:
+    """Project a JSON object to ``id`` and ``claim`` without loading other values."""
+    decoder = json.JSONDecoder()
+    index = _skip_space(source, 0)
+    if index >= len(source) or source[index] != "{":
+        raise ValueError(f"Claim line {line_number} is not a JSON object")
+    index = _skip_space(source, index + 1)
+    projected: dict[str, Any] = {}
+    keys: set[str] = set()
+    if index < len(source) and source[index] == "}":
+        index += 1
+    else:
+        while True:
+            if index >= len(source) or source[index] != '"':
+                raise ValueError(f"Missing object key at claim line {line_number}")
+            key, end = decoder.raw_decode(source, index)
+            if not isinstance(key, str):
+                raise ValueError(f"Non-string object key at claim line {line_number}")
+            if key in keys:
+                raise ValueError(f"Duplicate top-level key {key!r} at claim line {line_number}")
+            keys.add(key)
+            index = _skip_space(source, end)
+            if index >= len(source) or source[index] != ":":
+                raise ValueError(f"Missing colon at claim line {line_number}")
+            value_start = _skip_space(source, index + 1)
+            if key in {"id", "claim"}:
+                value, value_end = decoder.raw_decode(source, value_start)
+                projected[key] = value
+                index = value_end
+            else:
+                index = _skip_json_value(source, value_start)
+            index = _skip_space(source, index)
+            if index >= len(source):
+                raise ValueError(f"Unterminated claim object at line {line_number}")
+            if source[index] == "}":
+                index += 1
+                break
+            if source[index] != ",":
+                raise ValueError(f"Expected comma at claim line {line_number}")
+            index = _skip_space(source, index + 1)
+    if _skip_space(source, index) != len(source):
+        raise ValueError(f"Trailing content at claim line {line_number}")
+    if set(projected) != {"id", "claim"}:
+        raise ValueError(f"Claim line {line_number} must contain id and claim fields")
+    if isinstance(projected["id"], bool) or not isinstance(projected["id"], int):
+        raise ValueError(f"Claim ID at line {line_number} is not an integer")
+    if not isinstance(projected["claim"], str):
+        raise ValueError(f"Claim text at line {line_number} is not a string")
+    return {"id": int(projected["id"]), "claim": projected["claim"]}
+
+
+def load_claim_projections(
+    path: Path,
+    allowed_ids: set[int] | None = None,
+    *,
+    expected_count: int | None = None,
+) -> list[dict[str, Any]]:
+    """Load only claim IDs/text while validating every JSONL record and ID."""
+    selected: list[dict[str, Any]] = []
+    seen_ids: set[int] = set()
+    record_count = 0
+    with path.open(encoding="utf-8") as handle:
+        for line_number, raw_line in enumerate(handle, 1):
+            if not raw_line.strip():
+                raise ValueError(f"Blank claim record at line {line_number}")
+            record = _project_claim_record(raw_line.rstrip("\r\n"), line_number=line_number)
+            claim_id = int(record["id"])
+            if claim_id in seen_ids:
+                raise ValueError(f"Duplicate claim ID {claim_id} at line {line_number}")
+            seen_ids.add(claim_id)
+            record_count += 1
+            if allowed_ids is None or claim_id in allowed_ids:
+                selected.append(record)
+    if expected_count is not None and record_count != expected_count:
+        raise ValueError(
+            f"Expected {expected_count} claim records in {path.name}, found {record_count}"
+        )
+    if allowed_ids is not None:
+        returned = {int(row["id"]) for row in selected}
+        if returned != allowed_ids or len(selected) != len(allowed_ids):
+            raise ValueError("Label-blind loader did not return exactly the allowed IDs")
+    return sorted(selected, key=lambda row: int(row["id"]))
 
 
 def load_claim_texts_only(path: Path, allowed_ids: set[int]) -> list[dict[str, Any]]:
-    """Load IDs and claim strings without deserializing the evidence field."""
-    decoder = json.JSONDecoder()
-    selected, seen = [], set()
-    with path.open(encoding="utf-8") as handle:
-        for line_number, line in enumerate(handle, 1):
-            id_match = ID_PATTERN.search(line[:120])
-            if id_match is None:
-                raise ValueError(f"Missing claim ID at line {line_number}")
-            claim_id = int(id_match.group(1))
-            if claim_id not in allowed_ids:
-                continue
-            claim_match = CLAIM_KEY_PATTERN.search(line)
-            if claim_match is None:
-                raise ValueError(f"Missing claim text at line {line_number}")
-            text, _ = decoder.raw_decode(line[claim_match.end() :].lstrip())
-            if not isinstance(text, str):
-                raise ValueError("Claim is not a JSON string")
-            selected.append({"id": claim_id, "claim": text})
-            seen.add(claim_id)
-    if seen != allowed_ids or len(selected) != len(allowed_ids):
-        raise ValueError("Label-blind loader did not return exactly the allowed IDs")
-    return sorted(selected, key=lambda row: row["id"])
+    """Compatibility wrapper for the validated restricted claim projection."""
+    return load_claim_projections(path, allowed_ids)
 
 
 def build_blind_retrieval_records(

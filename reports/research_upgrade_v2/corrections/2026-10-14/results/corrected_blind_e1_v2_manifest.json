@@ -1,0 +1,42 @@
+{
+  "claim_count": 827,
+  "completed_at_utc": "2026-10-14T06:47:36.475888+00:00",
+  "corrected_projection_fields": [
+    "id",
+    "claim"
+  ],
+  "correction_spec_sha256": "fa36b25b01ea28f0b6c4be7153c4a14868e05c9fff06dd0d25940983503db60d",
+  "device": "mps",
+  "device_note": "MPS selected after successful model transfer",
+  "evidence_class": "post_study_corrective_replay_not_fresh_confirmation",
+  "historical_v2_dev_results_previously_observed": true,
+  "historical_v2_full_record_dev_json_deserialization_disclosed": true,
+  "inference_stats": {
+    "batch_size": 24,
+    "device": "mps",
+    "elapsed_seconds": 81.64528466598131,
+    "pair_count": 12405,
+    "pairs_per_second": 151.93773958594235,
+    "truncated_count": 0
+  },
+  "injected_pair_count": 0,
+  "injection_stats": null,
+  "model_id": "cross-encoder/nli-deberta-v3-small",
+  "non_projection_annotation_values_materialized_for_scoring": false,
+  "pair_count": 12405,
+  "partition_counts": {
+    "dev": 300,
+    "fit": 527
+  },
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "private_cache_artifact_sha256": {
+    "corrected_blind_e1_v2_features.jsonl": "e508ae3574534f9a5541058c978685b89876abe3548e0d59d6d2e8d4ca35774f"
+  },
+  "protocol_sha256": "70ae8596df22c22131f895dc888a545b9e3f3512a845f0735977cc46250d2301",
+  "python": "3.12.15",
+  "revision": "e9890682d9e4279b7ae6d0fcfb435a43206280ec",
+  "semantic_irrelevance_of_injected_document_established": false,
+  "started_at_utc": "2026-10-14T06:46:06.333548+00:00",
+  "status": "CORRECTIVE_REPLAY_COMPLETE",
+  "verifier": "e1_v2"
+}

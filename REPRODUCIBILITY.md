@@ -46,5 +46,9 @@ The public candidate excludes raw SciFact files, claim-level predictions, model 
 
 ## Reproduction boundary
 
-The current Internal Test is no longer unseen. A clean rerun can reproduce the reported study, but any new model or feature development requires new independent data for a fresh confirmatory claim.
+The current Internal Test is no longer unseen. A clean rerun can reproduce the reported study, but any new model or feature development requires genuinely new data for a fresh untouched-evaluation claim.
+
+## Public-checkout clarification and v2
+
+The public checkout does not include the private Phase 0/1/3 manifests, claim-level artifacts, joblib bundles, or the README-referenced `scripts/build_phase1_reports.py`. Consequently, the original staged command list is a description of the complete private package, not a fully executable public clean-checkout workflow. Research Upgrade v2 supplies an executable public reconstruction using the audited raw download and lossless numeric model specification. See `reports/research_upgrade_v2/REPRODUCIBILITY_AUDIT.md`.
 

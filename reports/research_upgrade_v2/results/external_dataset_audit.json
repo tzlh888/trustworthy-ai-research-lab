@@ -1,0 +1,61 @@
+{
+  "audit_date_client_timezone": "2026-10-14 Europe/Budapest",
+  "official_scifact_dev": {
+    "source": "https://github.com/allenai/scifact",
+    "claims_sha256": "86f0435d08fdb65d1aa41d1472684f57e6e71930626497bdf4d7a9ec1a632217",
+    "claims": 300,
+    "eligible_support_or_contradict_claims": 188,
+    "license": "claims and annotations CC BY 4.0; S2ORC abstracts ODC-By 1.0; upstream code Apache-2.0",
+    "task_fit": "full E1 pipeline compatible",
+    "historical_project_use": "not used by the published Phase 3 study",
+    "overlap": {
+      "exact_claim_id_overlap_with_historical_train": 0,
+      "normalized_claim_text_overlap": 2,
+      "shared_cited_documents": 181
+    },
+    "evidence_grade": "independent same-dataset split, not cross-dataset replication",
+    "used_for_main_v2_evaluation": true
+  },
+  "scifact_open": {
+    "source": "https://github.com/dwadden/scifact-open",
+    "audited_commit": "6fc2e2f2f97001f2fadb882600beb3e984d77aad",
+    "archive_url": "https://scifact.s3.us-west-2.amazonaws.com/scifact-open/latest/scifact_open.tar.gz",
+    "archive_bytes": 287369773,
+    "archive_sha256": "8f4dc238b2eff422bab5c7918fcbddb6996b29d37cb887942ef6ee1a16fb3415",
+    "claims_sha256": "ecd7a1bec2fc1b483f9127f6d0927ff17ebeb08e120088c6e037dfc85ce2b63b",
+    "candidate_corpus_sha256": "664801e5088c177cd09c01bb410b61e73312bf393f88726f2b9ffb8416f44e0f",
+    "claims": 279,
+    "candidate_documents": 12236,
+    "candidate_documents_marked_scifact_orig": 1198,
+    "support_evidence_records": 249,
+    "contradict_evidence_records": 211,
+    "citation_evidence_records": 209,
+    "pooled_evidence_records": 251,
+    "overlap_with_original_scifact": {
+      "same_normalized_claim_text": 279,
+      "same_claim_id": 279,
+      "claims_with_any_evidence_document_in_original_corpus": 194,
+      "strict_no_claim_or_evidence_overlap_subset": 0
+    },
+    "retrieval_boundary": "the 12,236-document candidate corpus is much smaller and pool-conditioned relative to the documented 500K open corpus",
+    "license_audit": "no repository LICENSE file was present at the audited commit; upstream data documentation identifies S2ORC but does not itself establish a redistributable project-wide license",
+    "used_for_performance_evaluation": false,
+    "exclusion_reason": "all claims duplicate original SciFact claims, no strict non-overlap subset exists, and candidate-corpus retrieval changes the open-domain task"
+  },
+  "healthver": {
+    "source": "https://github.com/sarrouti/HealthVer",
+    "audited_commit": "b20ac99ceed62f5264a319fa25a854df1668d85b",
+    "train_rows": 10590,
+    "dev_rows": 1917,
+    "test_rows": 1823,
+    "train_sha256": "57668949f79d0f46e66d74df4b0bc9812cad4d5ad7c5dd03dfba008a608b3f2a",
+    "dev_sha256": "6f8ea31cbcf2ea5a2d3c82d65587d66e96de4f70e72642bbf7f61fec6ef8a93a",
+    "test_sha256": "cf457d2dcddd7a736408082d0037527884f7ca3bda06729e1da5ec9e3b135819",
+    "labels": ["Supports", "Refutes", "Neutral"],
+    "granularity": "one supplied evidence statement and one claim per row",
+    "task_fit": "NLI evidence-pair classification only; no equivalent abstract corpus, BM25 document retrieval task, or claim-level evidence aggregation for F4/F5",
+    "license_audit": "no LICENSE file was present at the audited commit",
+    "used_for_performance_evaluation": false,
+    "exclusion_reason": "Neutral is a labeled relation, not missing evidence or E1 NO_RELATION; arbitrary conversion would change the task and F4 is undefined"
+  }
+}

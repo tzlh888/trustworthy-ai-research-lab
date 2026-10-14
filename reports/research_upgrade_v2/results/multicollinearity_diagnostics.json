@@ -1,0 +1,36 @@
+{
+  "condition_number_standardized_design": 3.591522243830372,
+  "interpretation": "Descriptive collinearity diagnostics; coefficients are not causal effects.",
+  "vif": [
+    {
+      "feature": "F1_decision_confidence",
+      "r_squared_from_other_features": 0.36585514344916537,
+      "vif": 1.576926769443627
+    },
+    {
+      "feature": "F2_support_contradict_margin",
+      "r_squared_from_other_features": 0.6730137349842702,
+      "vif": 3.058232430502531
+    },
+    {
+      "feature": "F3_is_contradict",
+      "r_squared_from_other_features": 0.43853620494837764,
+      "vif": 1.7810587411216026
+    },
+    {
+      "feature": "F3_is_no_relation",
+      "r_squared_from_other_features": 0.5564050796236646,
+      "vif": 2.25430895185099
+    },
+    {
+      "feature": "F4_bm25_top2_normalized_margin",
+      "r_squared_from_other_features": 0.016831011335314394,
+      "vif": 1.017119143839325
+    },
+    {
+      "feature": "F5_evidence_conflict_rate",
+      "r_squared_from_other_features": 0.5198116421363502,
+      "vif": 2.0825161285645986
+    }
+  ]
+}

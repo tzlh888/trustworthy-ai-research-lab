@@ -1,0 +1,33 @@
+{
+  "private_cache_artifact_sha256": {
+    "blind_e1_v2_features.jsonl": "e508ae3574534f9a5541058c978685b89876abe3548e0d59d6d2e8d4ca35774f"
+  },
+  "claim_count": 827,
+  "completed_at_utc": "2026-10-13T22:58:39.811019+00:00",
+  "device": "mps",
+  "device_note": "MPS selected after successful model transfer",
+  "gold_labels_deserialized_for_scoring": false,
+  "inference_stats": {
+    "batch_size": 24,
+    "device": "mps",
+    "elapsed_seconds": 84.26193937499193,
+    "pair_count": 12405,
+    "pairs_per_second": 147.2194930714077,
+    "truncated_count": 0
+  },
+  "injected_pair_count": 0,
+  "injection_stats": null,
+  "model_id": "cross-encoder/nli-deberta-v3-small",
+  "pair_count": 12405,
+  "partition_counts": {
+    "dev": 300,
+    "fit": 527
+  },
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "protocol_sha256": "70ae8596df22c22131f895dc888a545b9e3f3512a845f0735977cc46250d2301",
+  "python": "3.12.15",
+  "revision": "e9890682d9e4279b7ae6d0fcfb435a43206280ec",
+  "started_at_utc": "2026-10-13T22:56:48.662367+00:00",
+  "status": "PREDICTIONS_FROZEN_BEFORE_V2_EVALUATION_LABEL_ACCESS",
+  "verifier": "e1_v2"
+}

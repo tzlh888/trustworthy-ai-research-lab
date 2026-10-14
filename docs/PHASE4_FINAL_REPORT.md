@@ -1,10 +1,12 @@
 # Phase 4 Final Deliverables and Acceptance Record
 
+> **Historical terminology notice (14 October 2026):** This report predates the V2 correction. “Preregistered” below means internally protocol-frozen; no external registry or third-party preregistration was verified. Current conclusions and deliverables are in `reports/research_upgrade_v2/FINAL_CORRECTION_AUDIT.md`.
+
 ## Scientific status
 
 Phase 4 changed no frozen model, prediction, feature, split, label, metric, bootstrap replicate, or Phase 3B conclusion. The independent evaluation contains 88 eligible claims. E1 accuracy is 0.488636. B1 and Full EARS have AURC values of 0.300833 and 0.264987, respectively, while their R80 values are 0.428571 and 0.457143. The paired EARS-minus-B1 differences are -0.035846 for AURC (95% CI [-0.076087, -0.003447]) and +0.028571 for R80 (95% CI [0, 0.063492]).
 
-**H1 INCONCLUSIVE under the preregistered joint criterion.** H2 and H3 were **Not Evaluated**.
+**H1 INCONCLUSIVE under the internally frozen joint criterion.** H2 and H3 were **Not Evaluated**.
 
 ## Deliverables
 

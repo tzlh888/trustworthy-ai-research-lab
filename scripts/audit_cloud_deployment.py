@@ -87,7 +87,17 @@ def deployment_manifest(root: Path) -> dict[str, Any]:
 
 
 def privacy_scan(root: Path) -> dict[str, Any]:
-    ignored_parts = {".git", ".cache", ".pytest_cache", "__pycache__"}
+    # Local dependency environments are neither deployment inputs nor repository
+    # artifacts.  Scanning them creates false positives from third-party package
+    # metadata while leaving the project-owned tree fully covered.
+    ignored_parts = {
+        ".git",
+        ".cache",
+        ".pytest_cache",
+        ".venv",
+        "venv",
+        "__pycache__",
+    }
     forbidden_names = {
         ".env",
         "secrets.toml",

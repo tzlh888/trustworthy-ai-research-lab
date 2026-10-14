@@ -1,0 +1,97 @@
+{
+  "protocol_version": "research-upgrade-v2.0.0",
+  "frozen_at_client_date": "2026-10-14",
+  "status": "FROZEN_BEFORE_SCIFACT_DEV_LABEL_EVALUATION",
+  "evidence_levels": {
+    "historical": "unchanged Phase 3B Internal Test results",
+    "same_dataset_validation": "official SciFact Dev, unused by the published project but from the same dataset family",
+    "cross_dataset": "only if task semantics, evidence granularity, and retrieval corpus match without arbitrary remapping",
+    "reconstructed": "newly generated E1 outputs or newly fitted risk models; never represented as the historical frozen model"
+  },
+  "primary_new_evaluation": {
+    "dataset": "Official SciFact Dev",
+    "claims_sha256": "86f0435d08fdb65d1aa41d1472684f57e6e71930626497bdf4d7a9ec1a632217",
+    "corpus_sha256": "b8d6c89624cb2ed74dee8938effc4f5d8bd2086887880af8110d64be4ceade62",
+    "eligibility": "exactly one authentic claim-level label derivable from non-empty evidence; labels must be SUPPORT or CONTRADICT; no complete-case deletion",
+    "unannotated_claims": "exclude from error-risk metrics and retain for retrieval diagnostics only; do not map to NO_RELATION",
+    "group_edges": [
+      "shared cited document ID",
+      "identical normalized claim text"
+    ],
+    "overlap_audit": [
+      "exact claim ID",
+      "identical normalized claim text",
+      "shared cited document ID"
+    ]
+  },
+  "frozen_e1": {
+    "model": "cross-encoder/nli-distilroberta-base",
+    "revision": "b14d131f9d32668a5e6a982729b57ff6ed5dfcbd",
+    "retrieval": "BM25Okapi k1=1.5 b=0.75 epsilon=0.25; top 20 retrieved; top 5 to NLI",
+    "selection": "three label-free IDF-overlap sentences per selected document",
+    "aggregation": "unchanged Phase 1 aggregation",
+    "numeric_model_spec_sha256": "c472f5b0f6035ca1fb70154efc4f76798681db8d5b8d2084f831cb6b62d9d90b"
+  },
+  "e1_v2_candidate": {
+    "status": "EXPLORATORY_CANDIDATE",
+    "model": "cross-encoder/nli-deberta-v3-small",
+    "revision": "e9890682d9e4279b7ae6d0fcfb435a43206280ec",
+    "rationale": "Apache-2.0 NLI cross-encoder with a stronger DeBERTa-v3 encoder; not scientific-domain trained",
+    "retrieval_selection_aggregation": "identical to E1 so the NLI substitution is isolated",
+    "selection_rule": "no test-set model selection; report regardless of direction"
+  },
+  "risk_models": {
+    "B1": ["F1", "F2", "F3"],
+    "B1_plus_F4": ["F1", "F2", "F3", "F4"],
+    "B1_plus_F5": ["F1", "F2", "F3", "F5"],
+    "EARS": ["F1", "F2", "F3", "F4", "F5"]
+  },
+  "learner": {
+    "type": "sklearn LogisticRegression",
+    "penalty": "l2",
+    "C": 0.1,
+    "solver": "lbfgs",
+    "class_weight": null,
+    "fit_intercept": true,
+    "max_iter": 2000,
+    "tol": 1e-06,
+    "random_state": 20261014,
+    "continuous_standardization": "fit-population mean and population standard deviation; zero variance scale=1",
+    "categorical_encoding": "F3 uses SUPPORT reference, plus is_CONTRADICT and is_NO_RELATION"
+  },
+  "metrics": {
+    "ranking": "ascending predicted error risk; ties by SHA-256 of 20261015:claim_id",
+    "aurc": "arithmetic mean of prefix selective risks for k=1..n",
+    "r80_count": "floor(0.8*n+0.5)",
+    "error_detection_auroc": "positive class y_error=1",
+    "paired_differences": "candidate minus B1; negative is better for AURC and R80"
+  },
+  "uncertainty": {
+    "bootstrap_unit": "connected claim group",
+    "replicates": 10000,
+    "seed": 20261016,
+    "interval": "2.5th and 97.5th percentile with linear interpolation",
+    "model_refitting": false,
+    "interpretation": "fixed-score sampling uncertainty only"
+  },
+  "post_hoc_historical": {
+    "internal_test_use": "error analysis and sensitivity only",
+    "leave_one_group_out": true,
+    "paired_80_percent_acceptance_analysis": true,
+    "prohibition": "no model or feature selection on the used Internal Test"
+  },
+  "perturbations": [
+    {"name": "drop_top_retrieved_document", "strength": "one document"},
+    {"name": "remove_lowest_selected_sentence_per_document", "strength": "one of three sentences"},
+    {"name": "inject_irrelevant_top5_document", "strength": "one deterministic corpus document selected by claim hash"},
+    {"name": "bm25_score_jitter", "strength": "deterministic plus/minus five percent without changing retrieved content"}
+  ],
+  "calibration": {
+    "training_partition": "historical Calibration split only",
+    "evaluation_partition": "Official SciFact Dev only",
+    "methods": ["Platt sigmoid"],
+    "metrics": ["Brier score", "log loss", "expected calibration error with 10 equal-width bins"],
+    "prohibition": "no Dev calibration fitting"
+  },
+  "decision_rule": "All point estimates and uncertainty intervals are reported; no post-hoc success threshold is introduced. The historical H1 remains INCONCLUSIVE."
+}

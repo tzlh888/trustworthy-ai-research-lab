@@ -191,7 +191,7 @@ if run:
 - Retrieval shows candidates from the fixed 5,183-document SciFact corpus, not an exhaustive literature search.
 - NLI scores describe the pinned model's relation prediction for one sentence-claim pair; they do not establish scientific truth.
 - B1 and EARS are uncalibrated ranking scores. Higher scores were ranked as riskier in the study, but individual values have no validated probability meaning.
-- The independent study found lower EARS AURC but worse EARS R80 than B1. The preregistered joint conclusion was inconclusive.
+- The historical internally protocol-frozen study found lower EARS AURC but worse EARS R80 than B1. H1 was inconclusive; no verified external preregistration is claimed.
 - Do not use this interface for diagnosis, treatment, clinical decisions, policy, or other high-stakes fact checking.
 """
     )

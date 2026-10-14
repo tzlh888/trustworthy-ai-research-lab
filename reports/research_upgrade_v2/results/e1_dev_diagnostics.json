@@ -1,0 +1,126 @@
+{
+  "classification": {
+    "accuracy": 0.48936170212765956,
+    "confusion_matrix": {
+      "CONTRADICT": {
+        "CONTRADICT": 52,
+        "NO_RELATION": 7,
+        "SUPPORT": 5
+      },
+      "SUPPORT": {
+        "CONTRADICT": 57,
+        "NO_RELATION": 27,
+        "SUPPORT": 40
+      }
+    },
+    "correct_count": 92,
+    "eligible_count": 188,
+    "error_count": 96,
+    "macro_f1_support_contradict": 0.5372644252146254,
+    "no_relation_prediction_count": 34,
+    "per_label": {
+      "CONTRADICT": {
+        "f1": 0.6011560693641619,
+        "precision": 0.47706422018348627,
+        "recall": 0.8125,
+        "support": 64
+      },
+      "SUPPORT": {
+        "f1": 0.4733727810650888,
+        "precision": 0.8888888888888888,
+        "recall": 0.3225806451612903,
+        "support": 124
+      }
+    }
+  },
+  "confusion_labels": [
+    "SUPPORT",
+    "CONTRADICT",
+    "NO_RELATION"
+  ],
+  "confusion_matrix": [
+    [
+      40,
+      57,
+      27
+    ],
+    [
+      5,
+      52,
+      7
+    ],
+    [
+      0,
+      0,
+      0
+    ]
+  ],
+  "eligible_claims": 188,
+  "eligible_groups": 164,
+  "error_breakdown": {
+    "category_counts_nonexclusive": {
+      "aggregation_failure": 20,
+      "multiple_document_aggregation_failure": 20,
+      "neutral_misclassification": 34,
+      "nli_or_reasoning_failure": 69,
+      "retrieval_failure": 8,
+      "sentence_selection_failure": 19
+    },
+    "class_distribution": {
+      "CONTRADICT": 64,
+      "SUPPORT": 124
+    },
+    "eligible_count": 188,
+    "error_count": 96,
+    "error_rate": 0.5106382978723404,
+    "errors_by_gold_label": {
+      "CONTRADICT": 12,
+      "SUPPORT": 84
+    }
+  },
+  "failure_category_combinations": {
+    "aggregation_failure + multiple_document_aggregation_failure + nli_or_reasoning_failure": 15,
+    "aggregation_failure + multiple_document_aggregation_failure + retrieval_failure": 2,
+    "aggregation_failure + multiple_document_aggregation_failure + sentence_selection_failure": 3,
+    "neutral_misclassification + nli_or_reasoning_failure": 22,
+    "neutral_misclassification + retrieval_failure": 3,
+    "neutral_misclassification + sentence_selection_failure": 9,
+    "nli_or_reasoning_failure": 32,
+    "retrieval_failure": 3,
+    "sentence_selection_failure": 7
+  },
+  "failure_taxonomy_counts": {
+    "aggregation_failure": 20,
+    "multiple_document_aggregation_failure": 20,
+    "neutral_misclassification": 34,
+    "nli_or_reasoning_failure": 69,
+    "retrieval_failure": 8,
+    "sentence_selection_failure": 19
+  },
+  "retrieval": {
+    "claim_hits_at_20": 180,
+    "claim_hits_at_5": 170,
+    "claim_recall_at_20": 0.9574468085106383,
+    "claim_recall_at_5": 0.9042553191489362,
+    "empty_evidence_claim_count_excluded": 112,
+    "evidence_bearing_claim_denominator": 188,
+    "gold_document_denominator": 209,
+    "gold_document_hits_at_20": 190,
+    "gold_document_hits_at_5": 176,
+    "gold_document_recall_at_20": 0.9090909090909091,
+    "gold_document_recall_at_5": 0.8421052631578947
+  },
+  "sentence_selection_at_5": {
+    "complete_rationale_set_hit_count": 143,
+    "conditional_complete_rationale_set_hit_rate": 0.8125,
+    "conditional_micro_gold_sentence_recall": 0.6096774193548387,
+    "gold_claim_document_denominator": 209,
+    "gold_sentence_denominator": 366,
+    "pipeline_complete_rationale_set_hit_rate": 0.6842105263157895,
+    "pipeline_micro_gold_sentence_recall": 0.5163934426229508,
+    "retrieval_cutoff": 5,
+    "retrieved_gold_claim_documents": 176,
+    "retrieved_gold_sentence_denominator": 310,
+    "selected_gold_sentence_hits": 189
+  }
+}

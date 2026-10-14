@@ -63,10 +63,11 @@ def test_final_training_population_gate() -> None:
         fit_final_models(rows)
 
 
-def test_claim_text_loader_does_not_require_valid_evidence_json(tmp_path: Path) -> None:
+def test_claim_text_loader_rejects_malformed_non_projection_json(tmp_path: Path) -> None:
     path = tmp_path / "claims.jsonl"
     path.write_text('{"id": 1, "claim": "alpha", "evidence": NOT_PARSED}\n{"id": 2, "claim": "beta", "evidence": {}}\n', encoding="utf-8")
-    assert load_claim_texts_only(path, {1}) == [{"id": 1, "claim": "alpha"}]
+    with pytest.raises(ValueError, match="Invalid JSON value"):
+        load_claim_texts_only(path, {1})
 
 
 def test_dynamic_grouped_bootstrap_is_deterministic() -> None:

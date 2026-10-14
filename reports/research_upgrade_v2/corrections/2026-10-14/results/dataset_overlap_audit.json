@@ -1,0 +1,10 @@
+{
+  "dev_claims": 300,
+  "dev_unique_cited_documents": 283,
+  "exact_id_overlap": 0,
+  "historical_claims": 809,
+  "historical_unique_cited_documents": 565,
+  "interpretation": "SciFact Dev is a separate official split but remains same-dataset-family validation; shared documents lower independence even if claim texts are distinct.",
+  "normalized_claim_text_overlap": 2,
+  "shared_cited_document_count": 181
+}

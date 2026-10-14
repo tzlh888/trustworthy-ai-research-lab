@@ -1,6 +1,8 @@
 # Limitations and Non-Deployment Statement
 
-The confirmatory result is **H1 INCONCLUSIVE under the preregistered joint criterion**. H2 and H3 were **Not Evaluated**.
+The historical frozen result is **H1 INCONCLUSIVE under the internally protocol-frozen joint criterion**. No verified third-party preregistration is claimed. H2 and H3 were **Not Evaluated**.
+
+The v2 SciFact Dev study did not establish a reliable EARS advantage: EARS worsened AURC while modestly improving the discrete R80 point, with paired intervals crossing zero. It is same-dataset validation, not external replication. See [LIMITATIONS_V2.md](reports/research_upgrade_v2/LIMITATIONS_V2.md).
 
 ## Statistical limits
 
