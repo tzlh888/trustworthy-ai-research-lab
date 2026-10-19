@@ -37,6 +37,16 @@ Start here:
 - [historical V2 reproducibility audit](reports/research_upgrade_v2/REPRODUCIBILITY_AUDIT.md)
 - [research ownership and AI disclosure](RESEARCH_OWNERSHIP.md)
 
+## V3.1 Benchmark-Reliability Study
+
+V3.1 is a separate, post-hoc annotation-sensitivity study built on frozen V2 predictions and scores. It examines proposed SciFact Dev corrections, eligibility changes, exact AURC influence, and cohort composition. It does not retrain the verifier or risk models and does not create a new independent test.
+
+Under the proposed-corrected 182-claim/159-group cohort, EARS-minus-B1 ΔAURC was `+0.001463` with paired 95% CI `[-0.021816, +0.026993]`; ΔR80 was `−0.013699` with CI `[-0.039735, +0.006993]`. Neither interval excludes zero. Two documented proposals can reverse the near-zero ΔAURC point ordering in a fixed-cohort sensitivity scenario, but this is not statistical significance. Claim 597 remains unresolved, and the corrections have not received independent human ratification.
+
+V3.1 therefore preserves the original scientific boundary: **EARS superiority is not established, external validation is not established, scientific results are frozen, and further model development is NO-GO.**
+
+Start with the [V3.1 research package](research/v3.1/README.md), then see its [statistical report](research/v3.1/STUDY_A_STATISTICAL_REPORT.md), [mathematical derivation](research/v3.1/STUDY_A_PLUS_MATHEMATICAL_DERIVATION.md), [limitations](research/v3.1/SCIENTIFIC_LIMITATIONS.md), [reproducibility statement](research/v3.1/REPRODUCIBILITY.md), and [AI-assistance disclosure](research/v3.1/AI_ASSISTANCE_DISCLOSURE.md).
+
 ## Method
 
 The base E1 verifier retrieves SciFact abstracts with BM25, selects three sentences from each of the top five documents using label-free lexical overlap, and applies the pinned `cross-encoder/nli-distilroberta-base` model to 15 sentence-claim pairs. Claim aggregation produces SUPPORT, CONTRADICT, or the model output NO_RELATION.
