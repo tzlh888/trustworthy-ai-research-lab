@@ -14,7 +14,7 @@ from pathlib import Path, PurePosixPath
 FIXED_TIMESTAMP = (2026, 10, 14, 0, 0, 0)
 EXCLUDED_PARTS = {
     ".git", ".venv", "venv", ".cache", ".pytest_cache", "__pycache__",
-    "tmp", "outputs", "data/raw",
+    "tmp", "outputs", "data/raw", "audit",
 }
 EXCLUDED_SUFFIXES = {".pyc", ".pyo", ".swp", ".tmp"}
 EXCLUDED_NAMES = {".DS_Store", "FINAL_V2_HANDOFF.md", "OWNER_VERIFICATION_WORKSHEET.md"}
@@ -74,7 +74,7 @@ def _allowed(relative: str) -> bool:
     parts = path.parts
     if not parts or path.is_absolute() or ".." in parts:
         return False
-    if relative.startswith("data/raw/"):
+    if relative == "data/raw" or relative.startswith("data/raw/"):
         return False
     if any(part in EXCLUDED_PARTS for part in parts):
         return False

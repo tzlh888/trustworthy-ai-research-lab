@@ -11,16 +11,17 @@ from pypdf import PdfReader
 
 from demo.cloud_artifacts import load_verified_numeric_models, score_frozen_models
 from scripts.analyze_research_upgrade_v2 import overlap_sensitivity
-from scripts.build_v2_release_candidate import build as build_release_candidate
+from scripts.build_v2_release_candidate import _allowed, build as build_release_candidate
 from scripts.run_upgrade_v2_inference import _claim_rows, _partition_ids
 from trustworthy_ai_lab.data import write_json
 from trustworthy_ai_lab.phase2_protocol import extract_features
 from trustworthy_ai_lab.phase3b import (
     build_blind_retrieval_records,
+    build_labeled_retrieval,
     finalize_e1_blind,
     load_claim_projections,
 )
-from trustworthy_ai_lab.pipeline import build_e1_pairs
+from trustworthy_ai_lab.pipeline import build_e1_pairs, finalize_e1
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -193,6 +194,57 @@ def test_annotation_poisoning_cannot_change_scoring_inputs_or_outputs(tmp_path: 
     _write_claim_fixture(contradict, "CONTRADICT", reordered=True)
     assert load_claim_projections(support) == load_claim_projections(contradict)
     assert _scoring_projection(support) == _scoring_projection(contradict)
+
+
+def test_evaluation_reads_labels_only_after_predictions_are_fixed() -> None:
+    blind = [{
+        "claim_id": 1,
+        "claim_text": "alpha claim",
+        "partition": "internal_test",
+        "retrieved_documents": [{
+            "doc_id": 1,
+            "rank": 1,
+            "selected_sentences": [{"sentence_index": 0}],
+        }],
+    }]
+    prediction = [{
+        "claim_id": 1,
+        "pair_id": "e1:1:1:1:0",
+        "doc_id": 1,
+        "doc_rank": 1,
+        "selected_sentence_rank": 1,
+        "sentence_index": 0,
+        "predicted_nli_label": "entailment",
+        "probabilities": {"entailment": 0.9},
+        "truncated": False,
+    }]
+
+    def evaluate(label: str) -> dict[str, object]:
+        claims = [{
+            "id": 1,
+            "evidence": {"1": [{"label": label, "sentences": [0]}]},
+        }]
+        return finalize_e1(build_labeled_retrieval(blind, claims), prediction)[0]
+
+    support = evaluate("SUPPORT")
+    contradict = evaluate("CONTRADICT")
+    assert support["predicted_claim_label"] == contradict["predicted_claim_label"] == "SUPPORT"
+    assert support["correct"] is True
+    assert contradict["correct"] is False
+
+
+def test_damaged_annotation_payload_cannot_change_scoring(tmp_path: Path) -> None:
+    valid = tmp_path / "valid.jsonl"
+    damaged = tmp_path / "damaged.jsonl"
+    _write_claim_fixture(valid, "SUPPORT")
+    rows = [
+        {"id": 1, "claim": "alpha claim", "evidence": "DAMAGED_ANNOTATION_PAYLOAD"},
+        {"id": 2, "claim": "beta claim", "evidence": None},
+    ]
+    damaged.write_text(
+        "".join(json.dumps(row) + "\n" for row in rows), encoding="utf-8"
+    )
+    assert _scoring_projection(valid) == _scoring_projection(damaged)
 
 
 @pytest.mark.parametrize(
@@ -381,6 +433,9 @@ def test_contribution_docs_preserve_attribution_and_verification_boundaries() ->
 
 
 def test_release_builder_excludes_caches_private_data_and_unsafe_paths(tmp_path: Path) -> None:
+    assert not _allowed("data/raw")
+    assert not _allowed("data/raw/claims.jsonl")
+    assert not _allowed("audit/final_technical_audit/report.md")
     output = tmp_path / "candidate.zip"
     manifest = build_release_candidate(ROOT, output)
     assert manifest["status"] == "PASS"
@@ -394,7 +449,9 @@ def test_release_builder_excludes_caches_private_data_and_unsafe_paths(tmp_path:
         assert not any(
             token in name
             for name in names
-            for token in ("__pycache__", ".pytest_cache", ".venv", "data/raw/", ".cache/")
+            for token in (
+                "__pycache__", ".pytest_cache", ".venv", "data/raw/", ".cache/", "audit/"
+            )
         )
         assert "paper/Trustworthy_AI_Research_Lab_V2_Final.pdf" in names
         assert "reports/research_upgrade_v2/FINAL_CORRECTION_AUDIT.md" in names
