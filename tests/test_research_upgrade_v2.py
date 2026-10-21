@@ -3,6 +3,7 @@ from __future__ import annotations
 import csv
 import hashlib
 import json
+import re
 import zipfile
 from pathlib import Path
 
@@ -458,3 +459,17 @@ def test_release_builder_excludes_caches_private_data_and_unsafe_paths(tmp_path:
         assert "docs/PERSONAL_RESEARCH_CONTRIBUTION.md" in names
         assert "portfolio/RESEARCH_CONTRIBUTION_PARAGRAPH.md" in names
         assert "portfolio/OWNER_VERIFICATION_WORKSHEET.md" not in names
+
+
+def test_public_navigation_links_resolve_and_audit_is_ignored() -> None:
+    assert "audit/" in (ROOT / ".gitignore").read_text(encoding="utf-8")
+    missing: list[str] = []
+    for relative in ("README.md", "RESEARCH_EVIDENCE_MAP.md"):
+        text = (ROOT / relative).read_text(encoding="utf-8")
+        for target in re.findall(r"!?(?:\[[^]]*\])\(([^)]+)\)", text):
+            if target.startswith(("http://", "https://", "#")):
+                continue
+            clean = target.split("#", 1)[0]
+            if clean and not (ROOT / clean).exists():
+                missing.append(f"{relative}: {target}")
+    assert missing == []

@@ -42,5 +42,5 @@ Only 88 claims and 39 eligible connected groups entered the primary test. The In
 
 ## 10. What would be a scientifically valid next step?
 
-A scientifically valid next step would preregister either an H2 evidence-degradation study, an H3 calibration study using the untouched calibration partition, or an external replication with a stronger scientific verifier. Any modified model must be evaluated on new independent data because the current Internal Test labels have already been used.
+At the V2 stage, a valid next step would have required a preregistered H2/H3 study or external replication with a stronger scientific verifier and new independent evaluation data. V3.1 later completed a post-hoc annotation-sensitivity analysis and closed further model development as **NO-GO**. Any future adjudication or external study must therefore be separately authorized and pre-specified rather than silently reopening the frozen result.
 

@@ -1,5 +1,7 @@
 # Publication Checklist
 
+> Historical pre-publication checklist. The unchecked owner-authorization items below were resolved on 2026-10-14; see [`PROJECT_FINAL_CLOSURE_REPORT.md`](PROJECT_FINAL_CLOSURE_REPORT.md). They are retained to preserve the pre-publication review record.
+
 The project has a public GitHub repository. The Research Upgrade v2 task made no push, pull request, release, or deployment.
 
 - [x] Frozen numerical results match Phase 3B manifests.

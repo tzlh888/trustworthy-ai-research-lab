@@ -57,13 +57,15 @@ Uncompleted verification items remain `NOT VERIFIED`. Present-day verification c
 
 ## Authorship and Licensing
 
-`CITATION.cff` contains the proposed public identity `Zeluohe Tang`, consistent with the current repository record. The owner must personally confirm the identity, contribution statement, and release claim.
+`CITATION.cff` contains the owner-confirmed public identity `Zeluohe Tang`, consistent with the current repository record.
 
-The root `LICENSE` is the complete official Apache License 2.0 text. Technical correctness of that file does not itself authorize release. The owner must confirm that the original project material can be licensed under Apache-2.0 while preserving all third-party terms.
+The root `LICENSE` is the complete official Apache License 2.0 text. Technical correctness of that file did not itself authorize release; owner authorization is recorded below and remains subject to all third-party terms.
 
-`AUTHORSHIP: PENDING HUMAN OWNER CONFIRMATION`
+The owner confirmed the public identity and contribution/AI-assistance disclosure and authorized Apache-2.0 publication of owner-controlled original code on 2026-10-14, as recorded in [`PROJECT_FINAL_CLOSURE_REPORT.md`](PROJECT_FINAL_CLOSURE_REPORT.md). This administrative confirmation does not verify unaided authorship or independent technical execution.
 
-`LICENSE AUTHORIZATION: PENDING HUMAN OWNER CONFIRMATION`
+`AUTHORSHIP IDENTITY AND PUBLICATION AUTHORIZATION: CONFIRMED BY OWNER`
+
+`LICENSE AUTHORIZATION: CONFIRMED BY OWNER, SUBJECT TO THIRD-PARTY TERMS`
 
 ## Claims Not Made
 

@@ -6,6 +6,21 @@
 
 > Research prototype only. This is not a fact-checking service. The repository does not provide medical advice, a scientific-truth service, calibrated error probabilities, or a deployment-ready verifier.
 
+## START HERE — Research Overview
+
+| Review item | Short answer and evidence |
+|---|---|
+| Research Question | Can label-free retrieval and evidence signals improve error-risk ranking over a matched NLI-only model? See the [formal question](#research-question). |
+| Main Finding | **V2 remained INCONCLUSIVE:** EARS and B1 traded places across AURC/R80 and evaluation populations. **V3.1 is post-hoc annotation sensitivity**, not a new validation, and also does not establish EARS superiority. See the [one-page summary](portfolio/ONE_PAGE_RESEARCH_SUMMARY.md). |
+| Scientific Limitation | Small same-family SciFact evaluations, a weak base verifier, incomplete public replay of private artifacts, unratified V3.1 corrections, and no external validation. See [V2 limitations](reports/research_upgrade_v2/LIMITATIONS_V2.md) and [V3.1 limitations](research/v3.1/SCIENTIFIC_LIMITATIONS.md). |
+| Research Contribution & AI Assistance | [Personal contribution boundary](docs/PERSONAL_RESEARCH_CONTRIBUTION.md) · [ownership and AI-assistance policy](RESEARCH_OWNERSHIP.md) |
+| Source Code | [`src/`](src/) and experiment [`scripts/`](scripts/) |
+| Experiment Results | [V2 corrected results](reports/research_upgrade_v2/corrections/2026-10-14/results/all_metrics.csv) · [V3.1 fixed-score results](research/v3.1/data/STUDY_A_PLUS_RESULTS.json) |
+| Reproducibility | [V2 final verification](reports/research_upgrade_v2/FINAL_REPRODUCIBILITY_VERIFICATION.md) · [V3.1 reproduction boundary](research/v3.1/REPRODUCIBILITY.md) |
+| Full Scientific Report | [Authoritative V2 paper](paper/Trustworthy_AI_Research_Lab_V2_Final.md) · [V3.1 statistical report](research/v3.1/STUDY_A_STATISTICAL_REPORT.md) · [research evidence map](RESEARCH_EVIDENCE_MAP.md) |
+
+Evidence order: V2 contains the primary model-comparison result; V3.1 only tests how proposed annotation changes affect frozen V2 predictions and scores. Both preserve the `INCONCLUSIVE` boundary.
+
 ## Research Question
 
 Can a frozen error-risk model that combines NLI behavior with label-free retrieval/evidence signals rank scientific claim-verification errors better than a matched NLI-only risk model?
@@ -20,7 +35,7 @@ The 2026-10-14 upgrade adds a label-gated evaluation on official SciFact Dev, ma
 
 On 188 eligible Dev claims in 164 connected groups, frozen B1 achieved AURC 0.281575 and R80 0.413333; frozen EARS achieved AURC 0.288355 and R80 0.400000. The paired group-bootstrap intervals for EARS-minus-B1 included zero for both endpoints. F5 showed exploratory model-dependent association, while F4 did not improve Dev ranking. An exploratory DeBERTa NLI replacement reduced verifier accuracy from 0.489362 to 0.473404 and is not a promoted baseline.
 
-Start here:
+Detailed V2 evidence:
 
 - [v2 technical report](reports/research_upgrade_v2/RESEARCH_UPGRADE_V2_REPORT.md)
 - [final correction audit](reports/research_upgrade_v2/FINAL_CORRECTION_AUDIT.md)
@@ -198,5 +213,5 @@ The public contribution record distinguishes documented owner actions, owner-dec
 
 ## Citation and License
 
-Use [CITATION.cff](CITATION.cff) after the owner confirms its existing public identity before any future release. Apache-2.0 remains an owner-controlled license decision. Dataset and model licenses remain separate.
+The owner confirmed the public identity in [CITATION.cff](CITATION.cff) and authorized Apache-2.0 publication of owner-controlled original code on 2026-10-14, as recorded in the [project closure report](PROJECT_FINAL_CLOSURE_REPORT.md). Dataset and model licenses remain separate.
 
