@@ -99,3 +99,23 @@ pre-filled.
 
 Passing software tests establishes software behavior, not EARS superiority,
 scientific validity, external generalization, or unaided human authorship.
+
+## Execution record
+
+Executed locally on 2026-10-22 at baseline and after implementation, then
+repeated from a fresh temporary clone of branch
+`research-upgrade-20261022` using the repository's pinned Python 3.12
+environment:
+
+- Baseline `python -m pytest -q`: VERIFIED, `42 passed, 61 skipped`.
+- Final `python -m pytest -q -rs`: VERIFIED, `49 passed, 61 skipped`.
+- The 61 skips are explicit repository gates: 60 require intentionally
+  excluded private/full artifacts and one notes final models are not trained.
+  They are not upgraded to VERIFIED.
+- Synthetic taxonomy and F4/F5 commands: VERIFIED; clean-clone regenerated
+  JSON was byte-identical to the committed reports.
+- Compilation and `git diff --check`: VERIFIED.
+
+No new natural inference, model training, private-artifact replay, external
+dataset run, or human adjudication occurred. Historical reported values beyond
+the tests that ran remain REPOSITORY-REPORTED rather than newly verified.
