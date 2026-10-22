@@ -1,0 +1,52 @@
+{
+  "F5_zero_ambiguity": "zero can mean no conflict or no non-neutral evidence",
+  "F5_zero_count": 2,
+  "F5_zero_without_non_neutral_evidence": 1,
+  "groups": 3,
+  "missing": {
+    "F4": 0,
+    "F5": 0
+  },
+  "n": 3,
+  "sensitivity_without_disputed_or_outlier": {
+    "excluded": 1,
+    "included": 2,
+    "mean_EARS_minus_B1_risk": 0.04999999999999999
+  },
+  "status": "POST_HOC_EXPLORATORY",
+  "strata": [
+    {
+      "F4_mean": 0.1,
+      "F4_median": 0.1,
+      "F5_mean": 0.0,
+      "F5_median": 0.0,
+      "evidence_status": "INSUFFICIENT_STRATUM",
+      "failure_category": "Evidence Selection Failure",
+      "groups": 1,
+      "mean_EARS_minus_B1_risk": -0.10000000000000003,
+      "n": 1
+    },
+    {
+      "F4_mean": 0.6,
+      "F4_median": 0.6,
+      "F5_mean": 0.5,
+      "F5_median": 0.5,
+      "evidence_status": "INSUFFICIENT_STRATUM",
+      "failure_category": "NLI Inference Failure",
+      "groups": 1,
+      "mean_EARS_minus_B1_risk": 0.10000000000000009,
+      "n": 1
+    },
+    {
+      "F4_mean": 0.8,
+      "F4_median": 0.8,
+      "F5_mean": 0.0,
+      "F5_median": 0.0,
+      "evidence_status": "INSUFFICIENT_STRATUM",
+      "failure_category": "Retrieval Failure",
+      "groups": 1,
+      "mean_EARS_minus_B1_risk": 0.2,
+      "n": 1
+    }
+  ]
+}

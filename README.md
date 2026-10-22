@@ -60,6 +60,15 @@ Under the proposed-corrected 182-claim/159-group cohort, EARS-minus-B1 ΔAURC wa
 
 V3.1 therefore preserves the original scientific boundary: **EARS superiority is not established, external validation is not established, scientific results are frozen, and further model development is NO-GO.**
 
+## 2026 failure-mechanism extension
+
+A separate AI-assisted extension adds a structured, label-maskable failure
+taxonomy; independent AURC/R80/AUROC and paired group-bootstrap checks; frozen
+F4/F5 mechanism summaries; and external-data overlap/license readiness checks.
+It does not modify frozen models or findings and is **READY BUT NOT EXTERNALLY
+VALIDATED**. See [method, competency exercises, and evidence
+limits](docs/RESEARCH_EXTENSION_2026-10-22.md).
+
 Start with the [V3.1 research package](research/v3.1/README.md), then see its [statistical report](research/v3.1/STUDY_A_STATISTICAL_REPORT.md), [mathematical derivation](research/v3.1/STUDY_A_PLUS_MATHEMATICAL_DERIVATION.md), [limitations](research/v3.1/SCIENTIFIC_LIMITATIONS.md), [reproducibility statement](research/v3.1/REPRODUCIBILITY.md), and [AI-assistance disclosure](research/v3.1/AI_ASSISTANCE_DISCLOSURE.md).
 
 ## Method

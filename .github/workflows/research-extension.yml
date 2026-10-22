@@ -1,0 +1,16 @@
+name: research-extension
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements-phase1.txt
+      - run: pip install pypdf==6.10.0
+      - run: pip install -e .
+      - run: pytest -q
+      - run: PYTHONPATH=src python scripts/run_failure_taxonomy.py --input examples/failure_cases.jsonl --output /tmp/failure-taxonomy.json
+      - run: PYTHONPATH=src python scripts/analyze_failure_features.py --input examples/feature_cases.jsonl --output /tmp/feature-analysis.json

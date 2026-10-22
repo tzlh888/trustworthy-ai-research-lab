@@ -1,0 +1,18 @@
+{
+  "features": {
+    "B1": ["F1", "F2", "F3"],
+    "EARS": ["F1", "F2", "F3", "F4", "F5"]
+  },
+  "metrics": {
+    "primary": ["AURC", "R80"],
+    "secondary": ["error_detection_AUROC"],
+    "uncertainty": "paired_group_bootstrap"
+  },
+  "model": "historical frozen E1/B1/EARS artifacts; no refit in readiness stage",
+  "protocol_recorded_at": "2026-10-22T00:00:00+02:00",
+  "status": "READY BUT NOT EXTERNALLY VALIDATED",
+  "thresholds": {
+    "fixed_coverage": 0.8,
+    "selection": "round-half-up via floor(0.8*n+0.5)"
+  }
+}

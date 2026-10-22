@@ -1,0 +1,61 @@
+{
+  "records": [
+    {
+      "available_reference_label": null,
+      "case_id": "fixture-retrieval",
+      "classification_method": "deterministic_rule_candidate",
+      "confidence": "MEDIUM",
+      "data_provenance": "deterministic synthetic fixture; not SciFact observation",
+      "evidence_references": [
+        "fixture-doc:1"
+      ],
+      "group_id": "fixture-g1",
+      "prediction": "SUPPORT",
+      "proposed_failure_category": "Retrieval Failure",
+      "reviewer_status": "PENDING",
+      "uncertainty_reason": "reference label, correctness, and reference-conditioned NLI fields were masked"
+    },
+    {
+      "available_reference_label": null,
+      "case_id": "fixture-selection",
+      "classification_method": "deterministic_rule_candidate",
+      "confidence": "MEDIUM",
+      "data_provenance": "deterministic synthetic fixture; not SciFact observation",
+      "evidence_references": [
+        "fixture-doc:2"
+      ],
+      "group_id": "fixture-g2",
+      "prediction": "NO_RELATION",
+      "proposed_failure_category": "Evidence Selection Failure",
+      "reviewer_status": "PENDING",
+      "uncertainty_reason": "reference label, correctness, and reference-conditioned NLI fields were masked"
+    },
+    {
+      "available_reference_label": null,
+      "case_id": "fixture-unresolved",
+      "classification_method": "deterministic_rule_candidate",
+      "confidence": "LOW",
+      "data_provenance": "deterministic synthetic fixture; not SciFact observation",
+      "evidence_references": [],
+      "group_id": "fixture-g3",
+      "prediction": "CONTRADICT",
+      "proposed_failure_category": "Multiple / Unresolved",
+      "reviewer_status": "PENDING",
+      "uncertainty_reason": "reference label, correctness, and reference-conditioned NLI fields were masked; available evidence does not localize a pipeline failure"
+    }
+  ],
+  "summary": {
+    "candidate_category_counts": {
+      "Aggregation / Decision Failure": 0,
+      "Annotation Ambiguity": 0,
+      "Evidence Selection Failure": 1,
+      "Multiple / Unresolved": 1,
+      "NLI Inference Failure": 0,
+      "Retrieval Failure": 1
+    },
+    "case_count": 3,
+    "group_count": 3,
+    "human_confirmed_count": 0,
+    "interpretation": "rule-based candidate categories; not human-adjudicated truth"
+  }
+}
